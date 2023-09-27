@@ -14,16 +14,60 @@ import java.util.jar.JarFile;
 
 import com.voyager.enterprise.plugin.entity.Plugin;
 import com.voyager.enterprise.plugin.entity.PluginManager;
+import com.voyager.pluginTest.MyPluginInClass;
 
 public class Main{
 
 	public final static String jarPath = "/home/administrador/Desktop/Untitled.jar";
 
 	public static void main(String... args) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		var pluginLoader = new PluginLoader(new File(jarPath));
-		pluginLoader.build( null );
+		
+		// Load Plugin from Jar File
+		var pluginLoaderJar = new PluginLoader(new File(jarPath)).build();
+		
+		
+		// Load Plugin from Class
+		var pluginLoaderClass = new PluginLoader(MyPluginInClass.class).build();
+
+		// Init Server
+		
 	}
 
+	/* Index listener
+    System.out.println("List Listener in Jar:");
+    System.out.println(classesListener);
+    for(Entry<String,MyPair<Class<?>, Constructor<?>>> listener : classesListener.entrySet()) {
+    	System.out.println("\t Class: "+ listener.getKey());
+    	Method[] listMethod = listener.getValue().getKey().getMethods();
+    	for(Method method : listMethod) {
+    		System.out.println("\t\t Method: "+method.getName());
+    		if( !method.isAnnotationPresent(EventHandler.class) ){
+    			
+    			 Annotation[] annotations = method.getDeclaredAnnotations();
+
+		        // Itera sobre as annotations e imprime seus nomes
+		        for (Annotation annotation : annotations) {
+		            boolean isAssingedEventHandler = annotation.annotationType().isAnnotationPresent(EventHandler.class); 
+		            if( isAssingedEventHandler ) {
+		            	System.out.println("\t\t\tAnnotation: " + annotation.annotationType().getName());
+		            }
+		        }
+    			
+    		} else System.out.println("Vincular!!");
+    	}
+    }
+*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// Legacy
 	public void teste01() {
 
         
