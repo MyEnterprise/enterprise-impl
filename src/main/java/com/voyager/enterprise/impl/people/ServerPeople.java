@@ -1,4 +1,4 @@
-package com.voyager.people;
+package com.voyager.enterprise.impl.people;
 
 import com.voyager.enterprise.manager.comercial.ManagerCommercial;
 import com.voyager.enterprise.manager.people.ManagerPeople;
