@@ -1,64 +1,87 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <url>http://maven.apache.org</url>
-  <packaging>jar</packaging>
-  <groupId>com.voyager</groupId>
-  <artifactId>enterprise-impl</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  
+	<modelVersion>4.0.0</modelVersion>
+	<url>http://maven.apache.org</url>
+	<packaging>jar</packaging>
+	<groupId>com.voyager</groupId>
+	<artifactId>enterprise-impl</artifactId>
+ 	<version>1.0-SNAPSHOT</version>
 
-  <properties>
-     <maven.compiler.source>11</maven.compiler.source>
-     <maven.compiler.target>11</maven.compiler.target>
-     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<!-- Compile Env -->
+    	<maven.compiler.source>17</maven.compiler.source>
+     	<maven.compiler.target>17</maven.compiler.target>
+     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     	<mainClass>com.voyager.Main</mainClass>
+     	<!-- dependencies Env -->
+     	<resilience4jVersion>2.1.0</resilience4jVersion>
+  	</properties>
 
-  <repositories>
-    <repository>
-      <id>github</id>
-      <name>GitHub OWNER Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/MyEnterprise/enterprise</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+ 	<repositories>
+ 		<repository>
+			<id>github</id>
+      		<name>GitHub OWNER Apache Maven Packages</name>
+      		<url>https://maven.pkg.github.com/MyEnterprise/enterprise</url>
+      		<releases>
+        		<enabled>true</enabled>
+      		</releases>
+      		<snapshots>
+        		<enabled>true</enabled>
+      		</snapshots>
+    	</repository>
+  	</repositories>
 
-  <dependencies>
-	<!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
-	<dependency>
-	    <groupId>org.reflections</groupId>
-	    <artifactId>reflections</artifactId>
-	    <version>0.9.12</version>
-	    <scope>compile</scope>
-	</dependency>
+  	<dependencies>
+  		<!--  API   -->
+    	<dependency>
+      		<groupId>com.voyager</groupId>
+      		<artifactId>enterprise</artifactId>
+      		<version>1.0.1-ALPHA</version>
+      		<scope>compile</scope>
+    	</dependency>
+    	
+    	<dependency>
+		  <groupId>com.google.guava</groupId>
+		  <artifactId>guava</artifactId>
+		  <version>32.1.2-jre</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-simple</artifactId>
+		  <version>1.7.21</version>
+		</dependency>
 
-    <dependency>
-      <groupId>com.voyager</groupId>
-      <artifactId>enterprise</artifactId>
-      <version>1.0-ALPHA</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
+  	</dependencies>
   
 	<build>
-    	<plugins>
-        	<plugin>
-            	<groupId>org.apache.maven.plugins</groupId>
-            	<artifactId>maven-jar-plugin</artifactId>
-            	<configuration>
-                	<archive>
-                    	<manifest>
-                        	<mainClass>com.voyager.Main</mainClass>
-                    	</manifest>
-                	</archive>
-            	</configuration>
-        	</plugin>
-    	</plugins>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-assembly-plugin</artifactId>
+	            <version>2.4</version>
+	            <configuration>
+	                <descriptorRefs>
+	                    <descriptorRef>jar-with-dependencies</descriptorRef>
+	                </descriptorRefs>
+	                <archive>
+	                    <manifest>
+	                        <mainClass>${mainClass}</mainClass>
+	                    </manifest>
+	                </archive>
+	            </configuration>
+	            <executions>
+	                <execution>
+	                    <id>make-assembly</id>
+	                    <phase>package</phase>
+	                    <goals>
+	                        <goal>single</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+	    </plugins>
 	</build>
-
 </project>
+
+

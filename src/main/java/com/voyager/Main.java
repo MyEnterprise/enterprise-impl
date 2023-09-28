@@ -7,29 +7,36 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import com.voyager.enterprise.impl.ServerManager;
+import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.plugin.entity.Plugin;
-import com.voyager.enterprise.plugin.entity.PluginManager;
+
 import com.voyager.pluginTest.MyPluginInClass;
 
 public class Main{
 
 	public final static String jarPath = "/home/administrador/Desktop/Untitled.jar";
 
-	public static void main(String... args) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public static void main(String... args) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, InterruptedException {
 		
 		// Load Plugin from Jar File
 		var pluginLoaderJar = new PluginLoader(new File(jarPath)).build();
-		
-		
+
 		// Load Plugin from Class
 		var pluginLoaderClass = new PluginLoader(MyPluginInClass.class).build();
 
 		// Init Server
+		System.out.println("INIT SERVER'S");
+		
+		var server = new ServerManager();
+		new ServerOperation();
+		
+			Thread.sleep(300);
+			System.out.println( "DATA: "+ ServerManager.circuitBreaker.decorateSupplier(()-> "SSEENNDD").get() );
 		
 	}
 
