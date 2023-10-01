@@ -3,14 +3,51 @@ package com.voyager.enterprise.impl.plugin;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Function;
 
+import com.voyager.enterprise.impl.ServerManager;
+import com.voyager.enterprise.impl.action.ActionQueue;
+import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.plugin.entity.Emitter;
 import com.voyager.enterprise.plugin.entity.Plugin;
 import com.voyager.enterprise.plugin.entity.PluginManager;
 import com.voyager.enterprise.server.Server;
 
-public class ServerPlugin implements PluginManager {
+public class ServerPlugin implements PluginManager, Runnable {
+
+	public static final ConcurrentLinkedQueue<ActionQueue> queue = new ConcurrentLinkedQueue<>();
+	private ServerManager sm;
+	
+	public ServerPlugin(ServerManager server) {
+		this.sm = server;
+	}
+
+	@Override
+	public void run() {
+		do {
+			var act = queue.poll();
+			if( act == null ) {	sleepLoop(50); continue; }
+
+			// check state servers
+			// check queue
+			applyQueue(act);
+
+
+			// after time
+			sleepLoop(25);			
+		}while( true );
+	}
+	
+	private void applyQueue(ActionQueue act) {
+		var result = act.getAction().apply(act.getData());
+		act.getCall().accept(result);
+	}
+
+	private void sleepLoop(long time) {
+        try {  Thread.sleep( time ); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+    }
 
 	@Override
 	public PluginManager register(Object eventFind) {

@@ -9,8 +9,8 @@
 
 	<properties>
 		<!-- Compile Env -->
-    	<maven.compiler.source>17</maven.compiler.source>
-     	<maven.compiler.target>17</maven.compiler.target>
+    	<maven.compiler.source>11</maven.compiler.source>
+     	<maven.compiler.target>11</maven.compiler.target>
      	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      	<mainClass>com.voyager.Main</mainClass>
      	<!-- dependencies Env -->
@@ -39,17 +39,19 @@
       		<version>1.0.1-ALPHA</version>
       		<scope>compile</scope>
     	</dependency>
-    	
-    	<dependency>
-		  <groupId>com.google.guava</groupId>
-		  <artifactId>guava</artifactId>
-		  <version>32.1.2-jre</version>
+		<!-- https://mvnrepository.com/artifact/io.ebean/ebean -->
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>ebean</artifactId>
+		    <version>13.22.0</version>
+		    <scope>compile</scope>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
-		  <groupId>org.slf4j</groupId>
-		  <artifactId>slf4j-simple</artifactId>
-		  <version>1.7.21</version>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.6.0</version>
 		</dependency>
 
   	</dependencies>

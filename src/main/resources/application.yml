@@ -1,0 +1,8 @@
+ebean:
+  dbSchema: ${db.name:mydb}
+  migration.run: true
+datasource:
+  db:
+    username: ${db.username:root}
+    password: ${db.password:12345ola}
+    url: ${db.url:jdbc:postgresql://localhost:5433/mydb}

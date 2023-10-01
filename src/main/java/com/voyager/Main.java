@@ -19,24 +19,21 @@ import com.voyager.pluginTest.MyPluginInClass;
 
 public class Main{
 
-	public final static String jarPath = "/home/administrador/Desktop/Untitled.jar";
-
-	public static void main(String... args) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, InterruptedException {
+	public static void main(String[] args){
 		
 		// Load Plugin from Jar File
-		var pluginLoaderJar = new PluginLoader(new File(jarPath)).build();
+		//String jarPath = "/home/administrador/Desktop/Untitled.jar";
+		//var pluginLoaderJar = new PluginLoader(new File(jarPath)).build();
 
 		// Load Plugin from Class
-		var pluginLoaderClass = new PluginLoader(MyPluginInClass.class).build();
+		//var pluginLoaderClass = new PluginLoader(MyPluginInClass.class).build();
 
 		// Init Server
 		System.out.println("INIT SERVER'S");
 		
-		var server = new ServerManager();
-		new ServerOperation();
+		var server = ServerManager.build();
 		
-			Thread.sleep(300);
-			System.out.println( "DATA: "+ ServerManager.circuitBreaker.decorateSupplier(()-> "SSEENNDD").get() );
+		server.initialize();
 		
 	}
 
@@ -64,60 +61,4 @@ public class Main{
     	}
     }
 */
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// Legacy
-	public void teste01() {
-
-        
-        try {
-
-            File jar = new File(jarPath);
-            ArrayList<Plugin> listPluginClass = new ArrayList<>(); 
-            // Crie o classloader com a URL do JAR
-            URLClassLoader loader = new URLClassLoader(new URL[] { new URL("file://" + jarPath) });
-
-        	JarFile jarFile = new JarFile(jar);
-            Enumeration<JarEntry> e = jarFile.entries();
-
-            while (e.hasMoreElements()) {
-                JarEntry jarEntry = e.nextElement();
-                
-                if (jarEntry.getName().endsWith(".class")) {
-                    String className = jarEntry.getName()
-                            .replace("/", ".")
-                            .replace(".class", "");
-                    
-                    Class<?> pluginClass = loader.loadClass(className);
-
-                    // Verifique se a classe implementa a interface Plugin
-                    boolean notInterface = !pluginClass.isInterface();
-                    boolean isAssignablePluginAndClass = notInterface && Plugin.class.isAssignableFrom(pluginClass);  
-
-                    if( isAssignablePluginAndClass ) {
-                    	Plugin plugin = (Plugin) pluginClass.getDeclaredConstructor().newInstance();
-		                listPluginClass.add( plugin );
-                    }
-                }
-            }
-
-            for(Plugin plugin : listPluginClass) {
-            	plugin.initialize(null);
-            }
-
-            loader.close();
-        
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
-
-	}
 }	
