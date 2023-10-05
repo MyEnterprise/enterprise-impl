@@ -30,6 +30,7 @@ public class Config {
     }
 
     public String getProperty(String key) {
+
     	Object value = getEnvProperty(key);
         if (value != null) {
             return value.toString();
@@ -38,11 +39,24 @@ public class Config {
         if (value != null) {
             return value.toString();
         }
-        return null;
+        return "";
     }
 
-    public Object getYamlProperty(String key) { return yamlConfig.get(key); }
+    public Object getYamlProperty(String key) { 
+        if( yamlConfig == null ) return null;
 
-    public String getEnvProperty(String key) { return envConfig.getProperty(key); }
+        var attr = key.split("\\.");
+        var value = yamlConfig.get(attr[0]);
+        for(var i = 1; i < attr.length; i++){
+            value = ((Map)value).get( attr[i] );
+        }
+
+        return value;
+    }
+
+    public String getEnvProperty(String key) { 
+        if( envConfig == null ) return null;
+        return envConfig.getProperty(key); 
+    }
 
 }

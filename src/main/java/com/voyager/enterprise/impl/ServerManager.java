@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.voyager.enterprise.config.Config;
 import com.voyager.enterprise.impl.action.ActionQueue;
 import com.voyager.enterprise.impl.comercial.ServerCommercial;
+import com.voyager.enterprise.impl.domain.DBFactory;
+import com.voyager.enterprise.impl.domain.MigrationFactory;
 import com.voyager.enterprise.impl.economy.ServerEconomy;
 import com.voyager.enterprise.impl.financial.ServerFinancial;
 import com.voyager.enterprise.impl.logistics.ServerLogistics;
@@ -20,41 +23,45 @@ import com.voyager.enterprise.manager.logistics.ManagerLogistics;
 import com.voyager.enterprise.manager.people.ManagerPeople;
 import com.voyager.enterprise.manager.project.ManagerProject;
 import com.voyager.enterprise.server.Server;
+import com.voyager.util.MyPair;
 
-import io.ebean.DB;
 import io.ebean.Database;
-import io.ebean.annotation.Platform;
+
 import io.ebean.dbmigration.DbMigration;
 
-
 public class ServerManager implements Server, Runnable {
-	
+
 	public static final ConcurrentLinkedQueue<ActionQueue> queue = new ConcurrentLinkedQueue<>();
 
 	private Database db;
-	
+	private DbMigration migration;
+	private Config config;
+
 	private Thread tManager;
-	private ServerCommercial commercial;
-	private Thread tCommercial;
-	private ServerEconomy economy;
-	private Thread tEconomy;
-	private ServerFinancial financial;
-	private Thread tFinancial;
-	private ServerLogistics logistics;
-	private Thread tLogistics;
-	private ServerOperation operation;
-	private Thread tOperation;
-	private ServerPeople people;
-	private Thread tPeople;
-	private ServerPlugin plugin;
-	private Thread tPlugin;
-	private ServerProject project;
-	private Thread tProject;
+
+	private MyPair<Thread, ServerCommercial> commercial;
+
+	private MyPair<Thread, ServerEconomy> economy;
+
+	private MyPair<Thread, ServerFinancial> financial;
+
+	private MyPair<Thread, ServerLogistics> logistics;
+
+	private MyPair<Thread, ServerOperation> operation;
+
+	private MyPair<Thread, ServerPeople> people;
+
+	private MyPair<Thread, ServerPlugin> plugin;
+
+	private MyPair<Thread, ServerProject> project;
 
 	// Config args
-	public static ServerManager build() {
+	public static ServerManager build(Config config) {
+
 		var server = new ServerManager();
-		
+
+		server.config = config;
+
 		server.setCommercial( new ServerCommercial(server) )
 		.setEconomy(new ServerEconomy(server))
 		.setFinancial(new ServerFinancial(server))
@@ -63,15 +70,15 @@ public class ServerManager implements Server, Runnable {
 		.setPeople(new ServerPeople(server))
 		.setPlugin(new ServerPlugin(server))
 		.setProject(new ServerProject(server));
-		
+
 		return server;
 	}
 
 	public void initialize() throws Throwable {
-		
+
 		this.initializeDB();
 		this.initializeServers();
-		
+
 	}
 	
 	@Override
@@ -88,65 +95,64 @@ public class ServerManager implements Server, Runnable {
 	}
 	
 	private void initializeDB() throws IOException {
-		//this.db = DB.getDefault();
-		
-		//DbMigration dbMigration = DbMigration.create();
-		//dbMigration.setPlatform(Platform.POSTGRES);
-		
-		//dbMigration.generateMigration();
+
+		this.db = DBFactory.build(this.config);
+
+		this.migration = MigrationFactory.build(db);
+
 	}
 	
 	private void initializeServers() {
-		tCommercial = new Thread(this.commercial);
-		tEconomy = new Thread(this.economy);
-		tFinancial = new Thread(this.financial);
-		tLogistics = new Thread(this.logistics);
-		tOperation = new Thread(this.operation);
-		tPeople = new Thread(this.people);
-		tPlugin = new Thread(this.plugin);
-		tProject = new Thread(this.project);
-		
+		commercial.setKey( new Thread(this.commercial.getValue()) );
+		economy.setKey( new Thread(this.economy.getValue()) );
+		financial.setKey( new Thread(this.financial.getValue()) );
+		logistics.setKey( new Thread(this.logistics.getValue()) );
+		operation.setKey( new Thread(this.operation.getValue()) );
+		people.setKey( new Thread(this.people.getValue()) );
+		plugin.setKey( new Thread(this.plugin.getValue()) );
+		project.setKey( new Thread(this.project.getValue()) );
+
 		tManager = new Thread(this);
 		tManager.start();
-		
-		tEconomy.start();
-		tCommercial.start();
-		tFinancial.start();
-		tLogistics.start();
-		tOperation.start();
-		tPeople.start();
-		tPlugin.start();
-		tProject.start();
+
+		economy.getKey().start();
+		commercial.getKey().start();
+		financial.getKey().start();
+		logistics.getKey().start();
+		operation.getKey().start();
+		people.getKey().start();
+		plugin.getKey().start();
+		project.getKey().start();
 	}
 
 	@Override
 	public ManagerCommercial getManagerCommercial() {
-		return commercial;
+		return commercial.getValue();
 	}
 
 	@Override
 	public ManagerEconomy getManagerEconomy() {
-		return economy;
+		return economy.getValue();
 	}
 
 	@Override
 	public ManagerFinancial getManagerFinancial() {
-		return financial;
+		return financial.getValue();
 	}
 
 	@Override
 	public ManagerLogistics getManagerLogistics() {
-		return logistics;
+		return logistics.getValue();
 	}
 
 	@Override
 	public ManagerPeople getManagerPeople() {
-		return people;
+		return people.getValue();
 	}
 
 	@Override
 	public ManagerProject getManagerProject() {
-		return project;
+		return project.getValue();
 	}
 
 	@Override
@@ -155,74 +161,74 @@ public class ServerManager implements Server, Runnable {
 	}
 
 	public ServerCommercial getCommercial() {
-		return commercial;
+		return commercial.getValue();
 	}
 
 	public ServerManager setCommercial(ServerCommercial commercial) {
-		this.commercial = commercial;
+		this.commercial.setValue(commercial);
 		return this;
 	}
 
 	public ServerEconomy getEconomy() {
-		return economy;
+		return economy.getValue();
 	}
 
 	public ServerManager setEconomy(ServerEconomy economy) {
-		this.economy = economy;
+		this.economy.setValue(economy);
 		return this;
 	}
 
 	public ServerFinancial getFinancial() {
-		return financial;
+		return financial.getValue();
 	}
 
 	public ServerManager setFinancial(ServerFinancial financial) {
-		this.financial = financial;
+		this.financial.setValue(financial);
 		return this;
 	}
 
 	public ServerLogistics getLogistics() {
-		return logistics;
+		return logistics.getValue();
 	}
 
 	public ServerManager setLogistics(ServerLogistics logistics) {
-		this.logistics = logistics;
+		this.logistics.setValue(logistics);
 		return this;
 	}
 
 	public ServerOperation getOperation() {
-		return operation;
+		return operation.getValue();
 	}
 
 	public ServerManager setOperation(ServerOperation operation) {
-		this.operation = operation;
+		this.operation.setValue(operation);
 		return this;
 	}
 
 	public ServerPeople getPeople() {
-		return people;
+		return people.getValue();
 	}
 
 	public ServerManager setPeople(ServerPeople people) {
-		this.people = people;
+		this.people.setValue(people);
 		return this;
 	}
 
 	public ServerPlugin getPlugin() {
-		return plugin;
+		return plugin.getValue();
 	}
 
 	public ServerManager setPlugin(ServerPlugin plugin) {
-		this.plugin = plugin;
+		this.plugin.setValue(plugin);
 		return this;
 	}
 
 	public ServerProject getProject() {
-		return project;
+		return project.getValue();
 	}
 
 	public ServerManager setProject(ServerProject project) {
-		this.project = project;
+		this.project.setValue(project);
 		return this;
 	}
 	

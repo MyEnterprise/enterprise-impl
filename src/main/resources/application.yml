@@ -1,9 +1,14 @@
 ebean:
-  platform: ebean-postgres
-  dbSchema: ${db.name:mydb}
-  migration.run: true
+  db:
+    ddl:
+      run: true
+      generate: true
+#  platform: ebean-postgres
+#  dbSchema: ${db.name:mydb}
+#  migration.run: true
 datasource:
   db:
-    username: ${db.username:root}
-    password: ${db.password:12345ola}
-    url: ${db.url:jdbc:postgresql://localhost:5433/mydb}
+    username: ${db.username:sa}
+    password: ${db.password:}
+    databaseUrl: ${db.url:jdbc:h2:mem:app}
+    databaseDriver: ${db.driver:org.h2.Driver}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.voyager</groupId>
+  <artifactId>enterprise</artifactId>
+  <versioning>
+    <release>1.0.3-ALPHA</release>
+    <versions>
+      <version>1.0.3-ALPHA</version>
+    </versions>
+    <lastUpdated>20231005221539</lastUpdated>
+  </versioning>
+</metadata>

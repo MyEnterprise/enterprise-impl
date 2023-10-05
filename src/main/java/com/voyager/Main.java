@@ -12,8 +12,11 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.voyager.enterprise.commercial.usercase.CaseSale;
+import com.voyager.enterprise.config.Config;
 import com.voyager.enterprise.impl.ServerManager;
 import com.voyager.enterprise.impl.action.ActionQueue;
+import com.voyager.enterprise.impl.domain.DB;
+import com.voyager.enterprise.impl.domain.DBFactory;
 import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.plugin.entity.Plugin;
 
@@ -21,7 +24,6 @@ import com.voyager.pluginTest.MyPluginInClass;
 
 import io.ebean.dbmigration.DbMigration;
 import io.ebean.migration.MigrationConfig;
-import io.ebean.DB;
 import io.ebean.Database;
 import io.ebean.DatabaseFactory;
 import io.ebean.annotation.Platform;
@@ -30,7 +32,7 @@ import io.ebean.config.DatabaseConfig;
 public class Main{
 
 	public static void main(String[] args) throws Throwable{
-		
+
 		// Load Plugin from Jar File
 		//String jarPath = "/home/administrador/Desktop/Untitled.jar";
 		//var pluginLoaderJar = new PluginLoader(new File(jarPath)).build();
@@ -40,25 +42,13 @@ public class Main{
 
 		// Init Server
 		System.out.println("INIT SERVER'S");
+		Config conf = new Config();
 		
-		var server = ServerManager.build();
+		var server = ServerManager.build(conf);
 		
-		//server.initialize();
-		
-		DatabaseConfig cfg = new DatabaseConfig();
+		server.initialize();
 
-		Properties properties = new Properties();
-		properties.put("ebean.db.ddl.generate", "true");
-		properties.put("ebean.db.ddl.run", "true");
-		properties.put("datasource.db.username", "sa");
-		properties.put("datasource.db.password", "");
-		properties.put("datasource.db.databaseUrl","jdbc:h2:mem:app2");
-		properties.put("datasource.db.databaseDriver", "org.h2.Driver");
 
-		cfg.loadFromProperties(properties);
-		Database db = DatabaseFactory.create(cfg);
-		
-		
 		/* Queue:
 		 * server.queue.add(new ActionQueue<>(ServerManager::getLogistics)
 				.data(null)
