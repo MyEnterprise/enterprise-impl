@@ -7,19 +7,29 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
-
+import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import com.voyager.enterprise.commercial.usercase.CaseSale;
 import com.voyager.enterprise.impl.ServerManager;
+import com.voyager.enterprise.impl.action.ActionQueue;
 import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.plugin.entity.Plugin;
 
 import com.voyager.pluginTest.MyPluginInClass;
 
+import io.ebean.dbmigration.DbMigration;
+import io.ebean.migration.MigrationConfig;
+import io.ebean.DB;
+import io.ebean.Database;
+import io.ebean.DatabaseFactory;
+import io.ebean.annotation.Platform;
+import io.ebean.config.DatabaseConfig;
+
 public class Main{
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws Throwable{
 		
 		// Load Plugin from Jar File
 		//String jarPath = "/home/administrador/Desktop/Untitled.jar";
@@ -33,8 +43,39 @@ public class Main{
 		
 		var server = ServerManager.build();
 		
-		server.initialize();
+		//server.initialize();
 		
+		DatabaseConfig cfg = new DatabaseConfig();
+
+		Properties properties = new Properties();
+		properties.put("ebean.db.ddl.generate", "true");
+		properties.put("ebean.db.ddl.run", "true");
+		properties.put("datasource.db.username", "sa");
+		properties.put("datasource.db.password", "");
+		properties.put("datasource.db.databaseUrl","jdbc:h2:mem:app2");
+		properties.put("datasource.db.databaseDriver", "org.h2.Driver");
+
+		cfg.loadFromProperties(properties);
+		Database db = DatabaseFactory.create(cfg);
+		
+		
+		/* Queue:
+		 * server.queue.add(new ActionQueue<>(ServerManager::getLogistics)
+				.data(null)
+				.call(arg0 -> {
+			
+				}));
+		*/
+		//CaseSale sale = server.getCommercial().useCase(CaseSale.class);
+	    //MigrationConfig config = new MigrationConfig();
+	    //config.setDbUsername("sa");
+	    //config.setDbPassword("");
+	    //config.setDbUrl("jdbc:h2:mem:db1");
+
+	    // or load from Properties
+	    //Properties properties = ...
+	    //config.load(properties);
+
 	}
 
 	/* Index listener

@@ -18,7 +18,11 @@
   	</properties>
 
  	<repositories>
- 		<repository>
+            <!--<repository>
+	        <id>central</id>
+	        <url>https://repo.maven.apache.org/maven2</url>
+	    </repository>-->
+            <repository>
 			<id>github</id>
       		<name>GitHub OWNER Apache Maven Packages</name>
       		<url>https://maven.pkg.github.com/MyEnterprise/enterprise</url>
@@ -28,17 +32,19 @@
       		<snapshots>
         		<enabled>true</enabled>
       		</snapshots>
-    	</repository>
+            </repository>
   	</repositories>
 
   	<dependencies>
+
   		<!--  API   -->
     	<dependency>
-      		<groupId>com.voyager</groupId>
-      		<artifactId>enterprise</artifactId>
-      		<version>1.0.1-ALPHA</version>
-      		<scope>compile</scope>
-    	</dependency>
+		  <groupId>com.voyager</groupId>
+		  <artifactId>enterprise</artifactId>
+		  <version>1.0.3-ALPHA</version>
+		  <scope>compile</scope>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/io.ebean/ebean -->
 		<dependency>
 		    <groupId>io.ebean</groupId>
@@ -46,42 +52,130 @@
 		    <version>13.22.0</version>
 		    <scope>compile</scope>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-datasource -->
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>ebean-datasource</artifactId>
+		    <version>8.7</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-migration -->
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>ebean-migration</artifactId>
+		    <version>13.9.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.ebean/jakarta-persistence-api -->
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>jakarta-persistence-api</artifactId>
+		    <version>3.0</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-platform-all -->
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>ebean-platform-all</artifactId>
+		    <version>13.22.0</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>ebean-platform-postgres</artifactId>
+		    <version>13.22.0</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>ebean-postgres</artifactId>
+		    <version>13.22.0</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-ddl-generator -->		
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>ebean-ddl-generator</artifactId>
+		    <version>13.22.0-jakarta</version>
+		    <scope>compile</scope>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
 		    <version>42.6.0</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>2.1.214</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>io.ebean</groupId>
+		    <artifactId>persistence-api</artifactId>
+		    <version>3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+		<dependency>
+		    <groupId>org.yaml</groupId>
+		    <artifactId>snakeyaml</artifactId>
+		    <version>2.2</version>
 		</dependency>
 
   	</dependencies>
-  
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
 	    <plugins>
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-assembly-plugin</artifactId>
-	            <version>2.4</version>
-	            <configuration>
-	                <descriptorRefs>
-	                    <descriptorRef>jar-with-dependencies</descriptorRef>
-	                </descriptorRefs>
-	                <archive>
-	                    <manifest>
-	                        <mainClass>${mainClass}</mainClass>
-	                    </manifest>
-	                </archive>
-	            </configuration>
-	            <executions>
-	                <execution>
-	                    <id>make-assembly</id>
-	                    <phase>package</phase>
-	                    <goals>
-	                        <goal>single</goal>
-	                    </goals>
-	                </execution>
-	            </executions>
-	        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>${mainClass}</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>${mainClass}</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
 	    </plugins>
 	</build>
 </project>

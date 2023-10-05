@@ -2,11 +2,13 @@ package com.voyager.enterprise.impl.comercial;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.voyager.enterprise.commercial.usercase.CaseSale;
 import com.voyager.enterprise.impl.ServerManager;
 import com.voyager.enterprise.impl.action.ActionQueue;
 import com.voyager.enterprise.manager.comercial.ManagerCommercial;
+import com.voyager.enterprise.usercase.CaseGeneric;
 
-public class ServerCommercial implements ManagerCommercial, Runnable {
+public class ServerCommercial implements Runnable, ManagerCommercial {
 
 	public static final ConcurrentLinkedQueue<ActionQueue> queue = new ConcurrentLinkedQueue<>();
 	private ServerManager sm;
@@ -43,5 +45,11 @@ public class ServerCommercial implements ManagerCommercial, Runnable {
         try {  Thread.sleep( time ); }
         catch (InterruptedException e) { e.printStackTrace(); }
     }
+
+	@Override
+	public <T> T useCase(Class<T> usecase) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -1,4 +1,5 @@
 ebean:
+  platform: ebean-postgres
   dbSchema: ${db.name:mydb}
   migration.run: true
 datasource:

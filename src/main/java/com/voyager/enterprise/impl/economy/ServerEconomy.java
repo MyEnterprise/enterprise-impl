@@ -12,11 +12,8 @@ public class ServerEconomy implements ManagerEconomy, Runnable {
 
 	public static final  ConcurrentLinkedQueue<ActionQueue> queue = new ConcurrentLinkedQueue<>();
 	private ServerManager sm;
-	
-	
-	public ServerEconomy(ServerManager sm) {
-		this.sm = sm;
-	}
+
+	public ServerEconomy(ServerManager sm) { this.sm = sm;	}
 
 	@Override
 	public void run() {
@@ -43,5 +40,11 @@ public class ServerEconomy implements ManagerEconomy, Runnable {
         try {  Thread.sleep( time ); }
         catch (InterruptedException e) { e.printStackTrace(); }
     }
+
+	@Override
+	public <T> T useCase(Class<T> usecase) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

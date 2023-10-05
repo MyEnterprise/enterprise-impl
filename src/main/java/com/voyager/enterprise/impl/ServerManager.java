@@ -1,5 +1,6 @@
 package com.voyager.enterprise.impl;
 
+import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -22,6 +23,8 @@ import com.voyager.enterprise.server.Server;
 
 import io.ebean.DB;
 import io.ebean.Database;
+import io.ebean.annotation.Platform;
+import io.ebean.dbmigration.DbMigration;
 
 
 public class ServerManager implements Server, Runnable {
@@ -64,31 +67,13 @@ public class ServerManager implements Server, Runnable {
 		return server;
 	}
 
-	public void initialize() {
-
-		tCommercial = new Thread(this.commercial);
-		tEconomy = new Thread(this.economy);
-		tFinancial = new Thread(this.financial);
-		tLogistics = new Thread(this.logistics);
-		tOperation = new Thread(this.operation);
-		tPeople = new Thread(this.people);
-		tPlugin = new Thread(this.plugin);
-		tProject = new Thread(this.project);
+	public void initialize() throws Throwable {
 		
-		this.db = DB.getDefault();
+		this.initializeDB();
+		this.initializeServers();
 		
-		tCommercial.start();
-		tEconomy.start();
-		tFinancial.start();
-		tLogistics.start();
-		tOperation.start();
-		tPeople.start();
-		tPlugin.start();
-		tProject.start();
-		tManager = new Thread(this);
-		tManager.start();
 	}
-
+	
 	@Override
 	public void run() {
 		do {
@@ -100,6 +85,38 @@ public class ServerManager implements Server, Runnable {
 			// after time
 			sleepLoop(25);			
 		}while( true );
+	}
+	
+	private void initializeDB() throws IOException {
+		//this.db = DB.getDefault();
+		
+		//DbMigration dbMigration = DbMigration.create();
+		//dbMigration.setPlatform(Platform.POSTGRES);
+		
+		//dbMigration.generateMigration();
+	}
+	
+	private void initializeServers() {
+		tCommercial = new Thread(this.commercial);
+		tEconomy = new Thread(this.economy);
+		tFinancial = new Thread(this.financial);
+		tLogistics = new Thread(this.logistics);
+		tOperation = new Thread(this.operation);
+		tPeople = new Thread(this.people);
+		tPlugin = new Thread(this.plugin);
+		tProject = new Thread(this.project);
+		
+		tManager = new Thread(this);
+		tManager.start();
+		
+		tEconomy.start();
+		tCommercial.start();
+		tFinancial.start();
+		tLogistics.start();
+		tOperation.start();
+		tPeople.start();
+		tPlugin.start();
+		tProject.start();
 	}
 
 	@Override

@@ -42,5 +42,11 @@ public class ServerFinancial implements ManagerFinancial, Runnable {
         try {  Thread.sleep( time ); }
         catch (InterruptedException e) { e.printStackTrace(); }
     }
+
+	@Override
+	public <T> T useCase(Class<T> usecase) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

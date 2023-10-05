@@ -43,4 +43,10 @@ public class ServerProject implements ManagerProject, Runnable {
         catch (InterruptedException e) { e.printStackTrace(); }
     }
 
+	@Override
+	public <T> T useCase(Class<T> usecase) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -12,9 +12,7 @@ public class ServerPeople implements ManagerPeople, Runnable {
 	public static final  ConcurrentLinkedQueue<ActionQueue> queue = new ConcurrentLinkedQueue<>();
 	private ServerManager sm;
 	
-	public ServerPeople(ServerManager server) {
-		this.sm = server;
-	}
+	public ServerPeople(ServerManager server) {	this.sm = server; }
 
 	@Override
 	public void run() {
@@ -25,7 +23,6 @@ public class ServerPeople implements ManagerPeople, Runnable {
 			// check state servers
 			// check queue
 			applyQueue(act);
-
 
 			// after time
 			sleepLoop(25);			
@@ -41,4 +38,10 @@ public class ServerPeople implements ManagerPeople, Runnable {
         try {  Thread.sleep( time ); }
         catch (InterruptedException e) { e.printStackTrace(); }
     }
+
+	@Override
+	public <T> T useCase(Class<T> usecase) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
