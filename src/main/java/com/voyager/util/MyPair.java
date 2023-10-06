@@ -7,6 +7,7 @@ public class MyPair<T,C> implements Entry<T, C>{
 	private T key;
     private C value;
     
+	public MyPair() {}
     public MyPair(T key, C value) {
     	this.key = key;
     	this.value = value;

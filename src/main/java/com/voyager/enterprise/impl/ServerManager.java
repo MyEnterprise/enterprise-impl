@@ -39,21 +39,21 @@ public class ServerManager implements Server, Runnable {
 
 	private Thread tManager;
 
-	private MyPair<Thread, ServerCommercial> commercial;
+	private MyPair<Thread, ServerCommercial> commercial = new MyPair();
 
-	private MyPair<Thread, ServerEconomy> economy;
+	private MyPair<Thread, ServerEconomy> economy = new MyPair();
 
-	private MyPair<Thread, ServerFinancial> financial;
+	private MyPair<Thread, ServerFinancial> financial = new MyPair();
 
-	private MyPair<Thread, ServerLogistics> logistics;
+	private MyPair<Thread, ServerLogistics> logistics = new MyPair();
 
-	private MyPair<Thread, ServerOperation> operation;
+	private MyPair<Thread, ServerOperation> operation = new MyPair();
 
-	private MyPair<Thread, ServerPeople> people;
+	private MyPair<Thread, ServerPeople> people = new MyPair();
 
-	private MyPair<Thread, ServerPlugin> plugin;
+	private MyPair<Thread, ServerPlugin> plugin = new MyPair();
 
-	private MyPair<Thread, ServerProject> project;
+	private MyPair<Thread, ServerProject> project = new MyPair();
 
 	// Config args
 	public static ServerManager build(Config config) {
