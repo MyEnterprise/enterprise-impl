@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import com.voyager.enterprise.config.Config;
 import com.voyager.enterprise.impl.action.ActionQueue;
 import com.voyager.enterprise.impl.comercial.ServerCommercial;
+import com.voyager.enterprise.impl.comercial.models.BuyerEntity;
 import com.voyager.enterprise.impl.domain.DBFactory;
 import com.voyager.enterprise.impl.domain.MigrationFactory;
 import com.voyager.enterprise.impl.economy.ServerEconomy;
@@ -99,6 +100,10 @@ public class ServerManager implements Server, Runnable {
 		this.db = DBFactory.build(this.config);
 
 		this.migration = MigrationFactory.build(db);
+		
+		BuyerEntity buyer = new BuyerEntity();
+		buyer.setName("Gil");
+		db.insert(buyer);
 
 	}
 	

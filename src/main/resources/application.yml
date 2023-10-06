@@ -10,5 +10,5 @@ datasource:
   db:
     username: ${db.username:sa}
     password: ${db.password:}
-    databaseUrl: ${db.url:jdbc:h2:mem:app}
+    databaseUrl: ${db.url:jdbc:h2:file:./db}
     databaseDriver: ${db.driver:org.h2.Driver}

@@ -3,6 +3,7 @@ package com.voyager.enterprise.impl.domain;
 import java.util.Properties;
 
 import com.voyager.enterprise.config.Config;
+import com.voyager.enterprise.impl.comercial.models.BuyerEntity;
 
 import io.ebean.Database;
 import io.ebean.DatabaseFactory;
@@ -46,10 +47,20 @@ public class DBFactory {
 		properties.put("datasource.db.databaseUrl",conf.getProperty("datasource.db.databaseUrl"));
 		properties.put("datasource.db.databaseDriver", conf.getProperty("datasource.db.databaseDriver"));
 
+		
 		cfg.loadFromProperties(properties);
-        
-		db = DatabaseFactory.create(cfg);
 
+		
+		cfg.setDdlGenerate(true);
+		cfg.setDdlRun(true);
+		cfg.setDefaultServer(true);
+		cfg.setRegister(true);
+		    
+		cfg.addClass(BuyerEntity.class);
+		
+		
+		db = DatabaseFactory.create(cfg);
+		
         return db;
     }
 }

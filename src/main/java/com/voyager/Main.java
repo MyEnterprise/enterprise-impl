@@ -15,7 +15,7 @@ import com.voyager.enterprise.commercial.usercase.CaseSale;
 import com.voyager.enterprise.config.Config;
 import com.voyager.enterprise.impl.ServerManager;
 import com.voyager.enterprise.impl.action.ActionQueue;
-
+import com.voyager.enterprise.impl.comercial.models.BuyerEntity;
 import com.voyager.enterprise.impl.domain.DBFactory;
 import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.plugin.entity.Plugin;
@@ -47,8 +47,10 @@ public class Main{
 		var server = ServerManager.build(conf);
 		
 		server.initialize();
+		
+		
 
-		CaseSale sale = server.getCommercial().useCase(CaseSale.class);
+		//CaseSale sale = server.getCommercial().useCase(CaseSale.class);
 
 		/* Queue:
 		 * server.queue.add(new ActionQueue<>(ServerManager::getLogistics)
