@@ -90,7 +90,7 @@ public class ServerManager implements Server, Runnable {
 			// check queue
 			applyQueue(act);
 			// after time
-			sleepLoop(25);			
+			sleepLoop(25);
 		}while( true );
 	}
 	

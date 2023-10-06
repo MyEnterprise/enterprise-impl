@@ -48,7 +48,9 @@ public class ServerCommercial implements Runnable, ManagerCommercial {
 
 	@Override
 	public <T> T useCase(Class<T> usecase) {
-		// TODO Auto-generated method stub
+		
+		
+
 		return null;
 	}
 

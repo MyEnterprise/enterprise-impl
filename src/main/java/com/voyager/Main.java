@@ -43,11 +43,12 @@ public class Main{
 		// Init Server
 		System.out.println("INIT SERVER'S");
 		Config conf = new Config();
-		
+
 		var server = ServerManager.build(conf);
 		
 		server.initialize();
 
+		CaseSale sale = server.getCommercial().useCase(CaseSale.class);
 
 		/* Queue:
 		 * server.queue.add(new ActionQueue<>(ServerManager::getLogistics)
@@ -56,7 +57,7 @@ public class Main{
 			
 				}));
 		*/
-		//CaseSale sale = server.getCommercial().useCase(CaseSale.class);
+		
 	    //MigrationConfig config = new MigrationConfig();
 	    //config.setDbUsername("sa");
 	    //config.setDbPassword("");
