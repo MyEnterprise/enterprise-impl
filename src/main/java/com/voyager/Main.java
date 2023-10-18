@@ -47,11 +47,10 @@ public class Main{
 		var server = ServerManager.build(conf);
 		
 		server.initialize();
-		
-		
 
-		//CaseSale sale = server.getCommercial().useCase(CaseSale.class);
-
+		CaseSale sale = server.getCommercial().useCase(CaseSale.class);
+		System.out.println(sale);
+		sale.create(null);
 		/* Queue:
 		 * server.queue.add(new ActionQueue<>(ServerManager::getLogistics)
 				.data(null)

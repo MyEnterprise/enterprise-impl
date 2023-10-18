@@ -6,8 +6,16 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.financial.entity.Book;
 import com.voyager.enterprise.financial.usercase.CaseBook;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
+import com.voyager.enterprise.impl.financial.ServerFinancial;
 
 public class BookCase implements CaseBook{
+
+	private ServerFinancial sf;
+
+	public BookCase(ServerFinancial sf) {
+		this.sf = sf;
+	}
 
     @Override
     public Book create(Book arg0) {

@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.operation.entity.jobs.Task;
 import com.voyager.enterprise.operation.usercase.CaseTask;
 
 public class TaskCase implements CaseTask{
+	
+	private ServerOperation so;
+
+	public TaskCase(ServerOperation so) { this.so = so; }
 
     @Override
     public Task create(Task arg0) {

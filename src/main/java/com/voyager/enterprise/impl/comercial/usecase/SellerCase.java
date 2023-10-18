@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.commercial.entity.Seller;
 import com.voyager.enterprise.commercial.usercase.CaseSeller;
+import com.voyager.enterprise.impl.comercial.ServerCommercial;
 
 public class SellerCase implements CaseSeller{
+	
+	private ServerCommercial sc;
+	
+	public SellerCase(ServerCommercial sc) {
+		this.sc = sc;
+	}
 
     @Override
     public Seller create(Seller arg0) {

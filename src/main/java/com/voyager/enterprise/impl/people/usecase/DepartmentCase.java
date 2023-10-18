@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.operation.ServerOperation;
+import com.voyager.enterprise.impl.people.ServerPeople;
 import com.voyager.enterprise.people.entity.Department;
 import com.voyager.enterprise.people.usercase.CaseDepartment;
 
 public class DepartmentCase implements CaseDepartment{
+	
+	private ServerPeople sp;
+
+	public DepartmentCase(ServerPeople sp) { this.sp = sp; }
 
     @Override
     public Department create(Department arg0) {

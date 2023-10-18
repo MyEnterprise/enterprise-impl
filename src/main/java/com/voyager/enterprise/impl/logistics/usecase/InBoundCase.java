@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.logistics.entity.storage.inventory.InBound;
 import com.voyager.enterprise.logistics.usercase.CaseInBound;
 
 public class InBoundCase implements CaseInBound{
+	
+	private ServerLogistics sl;
+
+	public InBoundCase(ServerLogistics sl) {	this.sl = sl; }
 
     @Override
     public InBound create(InBound arg0) {

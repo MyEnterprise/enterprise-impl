@@ -6,8 +6,16 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.merchandise.Coin;
 import com.voyager.enterprise.economy.usercase.CaseCoin;
+import com.voyager.enterprise.impl.comercial.ServerCommercial;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class CoinCase implements CaseCoin {
+	
+	private ServerEconomy se;
+	
+	public CoinCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public Coin create(Coin arg0) {

@@ -1,6 +1,9 @@
 package com.voyager.enterprise.impl;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -17,6 +20,8 @@ import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.impl.people.ServerPeople;
 import com.voyager.enterprise.impl.plugin.ServerPlugin;
 import com.voyager.enterprise.impl.project.ServerProject;
+import com.voyager.enterprise.impl.usecase.EnterpriseCase;
+import com.voyager.enterprise.manager.ManagerEnterprise;
 import com.voyager.enterprise.manager.comercial.ManagerCommercial;
 import com.voyager.enterprise.manager.economy.ManagerEconomy;
 import com.voyager.enterprise.manager.financial.ManagerFinancial;
@@ -25,12 +30,13 @@ import com.voyager.enterprise.manager.people.ManagerPeople;
 import com.voyager.enterprise.manager.project.ManagerProject;
 import com.voyager.enterprise.server.Server;
 import com.voyager.util.MyPair;
+import com.voyager.util.Reflections;
 
 import io.ebean.Database;
 
 import io.ebean.dbmigration.DbMigration;
 
-public class ServerManager implements Server, Runnable {
+public class ServerManager implements Server, ManagerEnterprise, Runnable {
 
 	public static final ConcurrentLinkedQueue<ActionQueue> queue = new ConcurrentLinkedQueue<>();
 
@@ -101,33 +107,28 @@ public class ServerManager implements Server, Runnable {
 
 		this.migration = MigrationFactory.build(db);
 		
-		BuyerEntity buyer = new BuyerEntity();
+		/*BuyerEntity buyer = new BuyerEntity();
 		buyer.setName("Gil");
-		db.insert(buyer);
+		db.insert(buyer);*/
 
 	}
 	
 	private void initializeServers() {
-		commercial.setKey( new Thread(this.commercial.getValue()) );
-		economy.setKey( new Thread(this.economy.getValue()) );
-		financial.setKey( new Thread(this.financial.getValue()) );
-		logistics.setKey( new Thread(this.logistics.getValue()) );
-		operation.setKey( new Thread(this.operation.getValue()) );
-		people.setKey( new Thread(this.people.getValue()) );
+				
+		commercial.setKey( Thread.ofVirtual().start(this.commercial.getValue()) );
+		economy.setKey( Thread.ofVirtual().start(this.economy.getValue()) );
+		financial.setKey( Thread.ofVirtual().start(this.financial.getValue()) );
+		logistics.setKey( Thread.ofVirtual().start(this.logistics.getValue()) );
+		operation.setKey( Thread.ofVirtual().start(this.operation.getValue()) );
+		people.setKey( Thread.ofVirtual().start(this.people.getValue()) );
+		project.setKey( Thread.ofVirtual().start(this.project.getValue()) );
+		
 		plugin.setKey( new Thread(this.plugin.getValue()) );
-		project.setKey( new Thread(this.project.getValue()) );
-
 		tManager = new Thread(this);
+		
 		tManager.start();
-
-		economy.getKey().start();
-		commercial.getKey().start();
-		financial.getKey().start();
-		logistics.getKey().start();
-		operation.getKey().start();
-		people.getKey().start();
 		plugin.getKey().start();
-		project.getKey().start();
+
 	}
 
 	@Override
@@ -236,7 +237,7 @@ public class ServerManager implements Server, Runnable {
 		this.project.setValue(project);
 		return this;
 	}
-	
+
 	private void applyQueue(ActionQueue act) {
 		var result = act.getAction().apply(act.getData());
 		act.getCall().accept(result);
@@ -246,5 +247,38 @@ public class ServerManager implements Server, Runnable {
         try {  Thread.sleep( time ); }
         catch (InterruptedException e) { e.printStackTrace(); }
     }
+
+	private Map<String, Object> dictUseCase = new HashMap<String, Object>();
+	@Override
+	public <T> T useCase(Class<T> usecase) throws UnsupportedOperationException {
+		
+		String packageFind = EnterpriseCase.class.getPackage().getName();
+		
+		if( dictUseCase.containsKey(packageFind) ) return (T) dictUseCase.get(packageFind);
+
+		T instance = (T) Reflections.findImplInterfaceInPackage(packageFind, usecase).map(classe -> {
+			try {
+				return classe.getConstructor(this.getClass()).newInstance(this);
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | SecurityException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				try {
+					return classe.getConstructors()[0].newInstance();
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | SecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			throw new UnsupportedOperationException("Unimplemented method 'listAll'");
+		}).orElseThrow(()-> { throw new UnsupportedOperationException("Unimplemented method 'listAll'"); });
+
+		
+		dictUseCase.put( packageFind, instance);
+		
+		
+		return instance;
+	}
 
 }

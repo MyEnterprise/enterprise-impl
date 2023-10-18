@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.logistics.entity.storage.inventory.Volume;
 import com.voyager.enterprise.logistics.usercase.CaseVolume;
 
 public class VolumeCase implements CaseVolume{
+	
+	private ServerLogistics sl;
+
+	public VolumeCase(ServerLogistics sl) { this.sl = sl; }
 
     @Override
     public Volume create(Volume arg0) {

@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.commercial.entity.Order;
 import com.voyager.enterprise.commercial.usercase.CaseOrder;
+import com.voyager.enterprise.impl.comercial.ServerCommercial;
 
 public class OrderCase implements CaseOrder {
+	
+	private ServerCommercial sc;
+	
+	public OrderCase(ServerCommercial sc) {
+		this.sc = sc;
+	}
 
     @Override
     public Order create(Order arg0) {

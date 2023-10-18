@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.financial.entity.Budget;
 import com.voyager.enterprise.financial.usercase.CaseBudget;
+import com.voyager.enterprise.impl.financial.ServerFinancial;
 
 public class BudgetCase implements CaseBudget{
+	
+	private ServerFinancial sf;
+
+	public BudgetCase(ServerFinancial sf) {
+		this.sf = sf;
+	}
 
     @Override
     public Budget create(Budget arg0) {

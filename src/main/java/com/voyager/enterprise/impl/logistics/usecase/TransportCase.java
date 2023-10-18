@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.logistics.entity.distribution.Transport;
 import com.voyager.enterprise.logistics.usercase.CaseTransport;
 
 public class TransportCase implements CaseTransport{
+	
+	private ServerLogistics sl;
+
+	public TransportCase(ServerLogistics sl) {	this.sl = sl; }
 
     @Override
     public Transport create(Transport arg0) {

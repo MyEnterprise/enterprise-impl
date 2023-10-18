@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.merchandise.Service;
 import com.voyager.enterprise.economy.usercase.CaseService;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class ServiceCase implements CaseService{
+	
+	private ServerEconomy se;
+	
+	public ServiceCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public Service create(Service arg0) {

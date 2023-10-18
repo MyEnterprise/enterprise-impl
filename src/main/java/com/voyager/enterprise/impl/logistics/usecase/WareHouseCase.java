@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.logistics.entity.storage.WareHouse;
 import com.voyager.enterprise.logistics.usercase.CaseWareHouse;
 
 public class WareHouseCase implements CaseWareHouse{
+	
+	private ServerLogistics sl;
+
+	public WareHouseCase(ServerLogistics sl) {	this.sl = sl; }
 
     @Override
     public WareHouse create(WareHouse arg0) {

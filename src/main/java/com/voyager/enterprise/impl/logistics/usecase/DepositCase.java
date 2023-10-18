@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.logistics.entity.storage.Deposit;
 import com.voyager.enterprise.logistics.usercase.CaseDeposit;
 
 public class DepositCase implements CaseDeposit{
+	
+	private ServerLogistics sl;
+
+	public DepositCase(ServerLogistics sl) {	this.sl = sl; }
 
     @Override
     public Deposit create(Deposit arg0) {

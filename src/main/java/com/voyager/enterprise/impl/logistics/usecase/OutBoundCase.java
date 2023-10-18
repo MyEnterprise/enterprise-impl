@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.logistics.entity.storage.inventory.OutBound;
 import com.voyager.enterprise.logistics.usercase.CaseOutBound;
 
 public class OutBoundCase implements CaseOutBound{
+	
+	private ServerLogistics sl;
+
+	public OutBoundCase(ServerLogistics sl) {	this.sl = sl; }
 
     @Override
     public OutBound create(OutBound arg0) {

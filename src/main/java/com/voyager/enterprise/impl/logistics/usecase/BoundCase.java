@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.financial.ServerFinancial;
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.logistics.entity.storage.inventory.Bound;
 import com.voyager.enterprise.logistics.usercase.CaseBound;
 
 public class BoundCase implements CaseBound{
+	
+	private ServerLogistics sl;
+
+	public BoundCase(ServerLogistics sl) {	this.sl = sl; }
 
     @Override
     public Bound create(Bound arg0) {

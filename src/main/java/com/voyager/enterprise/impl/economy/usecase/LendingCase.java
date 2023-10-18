@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.Lending;
 import com.voyager.enterprise.economy.usercase.CaseLending;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class LendingCase implements  CaseLending{
+	
+	private ServerEconomy se;
+	
+	public LendingCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public Lending create(Lending arg0) {

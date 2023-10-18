@@ -9,8 +9,8 @@
 
 	<properties>
 		<!-- Compile Env -->
-    	<maven.compiler.source>11</maven.compiler.source>
-     	<maven.compiler.target>11</maven.compiler.target>
+    	<maven.compiler.source>21</maven.compiler.source>
+     	<maven.compiler.target>21</maven.compiler.target>
      	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      	<mainClass>com.voyager.Main</mainClass>
      	<!-- dependencies Env -->
@@ -49,7 +49,7 @@
     	<dependency>
 		  <groupId>com.voyager</groupId>
 		  <artifactId>enterprise</artifactId>
-		  <version>1.0.3-ALPHA</version>
+		  <version>1.0.6-ALPHA</version>
 		  <scope>compile</scope>
 		</dependency>
 

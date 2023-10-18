@@ -6,8 +6,13 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.financial.entity.Wallet;
 import com.voyager.enterprise.financial.usercase.CaseWallet;
+import com.voyager.enterprise.impl.financial.ServerFinancial;
 
 public class WalletCase implements CaseWallet{
+
+	private ServerFinancial sf;
+
+	public WalletCase(ServerFinancial sf) {	this.sf = sf; }
 
     @Override
     public Wallet create(Wallet arg0) {

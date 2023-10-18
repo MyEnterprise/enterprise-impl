@@ -6,12 +6,18 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.commercial.entity.Buyer;
 import com.voyager.enterprise.commercial.usercase.CaseBuyer;
+import com.voyager.enterprise.impl.comercial.ServerCommercial;
+
+import io.ebean.DB;
 
 public class BuyerCase implements CaseBuyer{
 
+	private ServerCommercial sc;
+
+	public BuyerCase(ServerCommercial sc) {	this.sc = sc; }
+
     @Override
     public Buyer create(Buyer arg0) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
     }
 

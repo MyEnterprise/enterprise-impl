@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.financial.entity.Resource;
 import com.voyager.enterprise.financial.usercase.CaseResource;
+import com.voyager.enterprise.impl.financial.ServerFinancial;
 
 public class ResourceCase implements CaseResource{
+	
+	private ServerFinancial sf;
+
+	public ResourceCase(ServerFinancial sf) {
+		this.sf = sf;
+	}
 
     @Override
     public Resource create(Resource arg0) {

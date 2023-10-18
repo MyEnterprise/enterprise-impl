@@ -1,5 +1,8 @@
 package com.voyager.enterprise.impl.operation;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -10,6 +13,7 @@ import com.voyager.enterprise.impl.comercial.ServerCommercial;
 import com.voyager.enterprise.impl.logistics.ServerLogistics;
 import com.voyager.enterprise.manager.comercial.ManagerCommercial;
 import com.voyager.enterprise.manager.operation.ManagerOperation;
+import com.voyager.util.Reflections;
 
 public class ServerOperation implements ManagerOperation, Runnable {
 
@@ -46,9 +50,37 @@ public class ServerOperation implements ManagerOperation, Runnable {
         catch (InterruptedException e) { e.printStackTrace(); }
     }
 
+	private Map<String, Object> dictUseCase = new HashMap<String, Object>();
 	@Override
-	public <T> T useCase(Class<T> usecase) {
-		// TODO Auto-generated method stub
-		return null;
+	public <T> T useCase(Class<T> usecase) throws UnsupportedOperationException {
+		
+		String packageFind = getClass().getPackage().getName();
+		
+		if( dictUseCase.containsKey(packageFind) ) return (T) dictUseCase.get(packageFind);
+		
+		
+		T instance = (T) Reflections.findImplInterfaceInPackage(packageFind, usecase).map(classe -> {
+			try {
+				return classe.getConstructor(this.getClass()).newInstance(this);
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | SecurityException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				try {
+					return classe.getConstructors()[0].newInstance();
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | SecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			throw new UnsupportedOperationException("Unimplemented method 'listAll'");
+		}).orElseThrow(()-> { throw new UnsupportedOperationException("Unimplemented method 'listAll'"); });
+
+		
+		dictUseCase.put( packageFind, instance);
+		
+		
+		return instance;
 	}
 }

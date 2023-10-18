@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.transaction.TransactionStatus;
 import com.voyager.enterprise.economy.usercase.CaseTransactionStatus;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class TransactionStatusCase implements CaseTransactionStatus{
+	
+	private ServerEconomy se;
+	
+	public TransactionStatusCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public TransactionStatus create(TransactionStatus arg0) {

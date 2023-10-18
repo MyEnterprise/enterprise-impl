@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.people.ServerPeople;
 import com.voyager.enterprise.people.entity.Office;
 import com.voyager.enterprise.people.usercase.CaseOffice;
 
 public class OfficeCase implements CaseOffice{
+	
+	private ServerPeople sp;
+
+	public OfficeCase(ServerPeople sp) { this.sp = sp; }
 
     @Override
     public Office create(Office arg0) {

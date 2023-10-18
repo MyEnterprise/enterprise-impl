@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
+import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.operation.entity.Job;
 import com.voyager.enterprise.operation.usercase.CaseJob;
 
 public class JobCase implements CaseJob{
+	
+	private ServerOperation so;
+
+	public JobCase(ServerOperation so) { this.so = so; }
 
     @Override
     public Job create(Job arg0) {

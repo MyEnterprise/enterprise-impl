@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.transaction.Transference;
 import com.voyager.enterprise.economy.usercase.CaseTransference;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class TransferenceCase implements CaseTransference{
+	
+	private ServerEconomy se;
+	
+	public TransferenceCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public Transference create(Transference arg0) {

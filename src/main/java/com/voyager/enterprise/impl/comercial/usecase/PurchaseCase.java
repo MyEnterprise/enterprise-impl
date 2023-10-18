@@ -6,9 +6,16 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.commercial.entity.Purchase;
 import com.voyager.enterprise.commercial.usercase.CasePurchase;
+import com.voyager.enterprise.impl.comercial.ServerCommercial;
 
 public class PurchaseCase implements CasePurchase{
 
+	private ServerCommercial sc;
+	
+	public PurchaseCase(ServerCommercial sc) {
+		this.sc = sc;
+	}
+	
     @Override
     public Purchase create(Purchase arg0) {
         // TODO Auto-generated method stub

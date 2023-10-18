@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.lending.Interest;
 import com.voyager.enterprise.economy.usercase.CaseInterest;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class InterestCase implements CaseInterest{
+	
+	private ServerEconomy se;
+	
+	public InterestCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public Interest create(Interest arg0) {

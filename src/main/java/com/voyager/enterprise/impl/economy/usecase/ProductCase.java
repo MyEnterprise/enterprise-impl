@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.merchandise.Product;
 import com.voyager.enterprise.economy.usercase.CaseProduct;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class ProductCase implements CaseProduct{
+	
+	private ServerEconomy se;
+	
+	public ProductCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public Product create(Product arg0) {

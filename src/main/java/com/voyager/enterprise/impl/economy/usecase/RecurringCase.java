@@ -6,8 +6,15 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.Recurring;
 import com.voyager.enterprise.economy.usercase.CaseRecurring;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class RecurringCase implements CaseRecurring{
+	
+	private ServerEconomy se;
+	
+	public RecurringCase(ServerEconomy se) {
+		this.se = se;
+	}
 
     @Override
     public Recurring create(Recurring arg0) {

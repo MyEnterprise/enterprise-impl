@@ -6,9 +6,16 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.lending.Fee;
 import com.voyager.enterprise.economy.usercase.CaseFee;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class FeeCase implements CaseFee{
 
+	private ServerEconomy se;
+	
+	public FeeCase(ServerEconomy se) {
+		this.se = se;
+	}
+	
     @Override
     public Fee create(Fee arg0) {
         // TODO Auto-generated method stub

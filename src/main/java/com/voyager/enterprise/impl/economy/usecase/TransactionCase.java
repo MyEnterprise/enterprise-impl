@@ -6,9 +6,16 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.Transaction;
 import com.voyager.enterprise.economy.usercase.CaseTransaction;
+import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class TransactionCase implements CaseTransaction{
 
+	private ServerEconomy se;
+	
+	public TransactionCase(ServerEconomy se) {
+		this.se = se;
+	}
+	
     @Override
     public Transaction create(Transaction arg0) {
         // TODO Auto-generated method stub

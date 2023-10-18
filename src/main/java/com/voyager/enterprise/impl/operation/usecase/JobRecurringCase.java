@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.logistics.ServerLogistics;
+import com.voyager.enterprise.impl.operation.ServerOperation;
 import com.voyager.enterprise.operation.entity.JobRecurring;
 import com.voyager.enterprise.operation.usercase.CaseJobRecurring;
 
 public class JobRecurringCase implements CaseJobRecurring{
+	
+	private ServerOperation so;
+
+	public JobRecurringCase(ServerOperation so) { this.so = so; }
 
     @Override
     public JobRecurring create(JobRecurring arg0) {

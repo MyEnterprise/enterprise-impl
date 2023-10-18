@@ -25,7 +25,7 @@ public class Config {
             envConfig.load(envInputStream);
         } catch (IOException e) {
             // Lidar com possíveis erros de leitura do arquivo .env
-            e.printStackTrace();
+            System.out.println("NOT found .env");
         }
     }
 

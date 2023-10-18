@@ -6,9 +6,16 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.commercial.entity.Offer;
 import com.voyager.enterprise.commercial.usercase.CaseOffer;
+import com.voyager.enterprise.impl.comercial.ServerCommercial;
 
 public class OfferCase implements CaseOffer{
-
+	
+	private ServerCommercial sc;
+	
+	public OfferCase(ServerCommercial sc) {
+		this.sc = sc;
+	}
+	
     @Override
     public Offer create(Offer arg0) {
         // TODO Auto-generated method stub

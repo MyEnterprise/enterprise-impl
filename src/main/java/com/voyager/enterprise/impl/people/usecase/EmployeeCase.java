@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import com.voyager.enterprise.impl.people.ServerPeople;
 import com.voyager.enterprise.people.entity.Employee;
 import com.voyager.enterprise.people.usercase.CaseEmployee;
 
 public class EmployeeCase implements CaseEmployee{
+	
+	private ServerPeople sp;
+
+	public EmployeeCase(ServerPeople sp) { this.sp = sp; }
 
     @Override
     public Employee create(Employee arg0) {
