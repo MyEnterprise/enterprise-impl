@@ -51,7 +51,7 @@
     	<dependency>
 		  <groupId>com.voyager</groupId>
 		  <artifactId>enterprise</artifactId>
-		  <version>1.0.8-ALPHA</version>
+		  <version>1.0.9-ALPHA</version>
 		  <scope>compile</scope>
 		</dependency>
 
