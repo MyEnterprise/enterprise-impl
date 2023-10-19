@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
 
 import com.voyager.enterprise.config.Config;
 import com.voyager.enterprise.impl.action.ActionQueue;
 import com.voyager.enterprise.impl.comercial.ServerCommercial;
-import com.voyager.enterprise.impl.comercial.models.BuyerEntity;
+import com.voyager.enterprise.impl.comercial.entities.BuyerEntity;
 import com.voyager.enterprise.impl.domain.DBFactory;
 import com.voyager.enterprise.impl.domain.MigrationFactory;
 import com.voyager.enterprise.impl.economy.ServerEconomy;
@@ -114,7 +115,7 @@ public class ServerManager implements Server, ManagerEnterprise, Runnable {
 	}
 	
 	private void initializeServers() {
-				
+
 		commercial.setKey( Thread.ofVirtual().start(this.commercial.getValue()) );
 		economy.setKey( Thread.ofVirtual().start(this.economy.getValue()) );
 		financial.setKey( Thread.ofVirtual().start(this.financial.getValue()) );
@@ -122,10 +123,10 @@ public class ServerManager implements Server, ManagerEnterprise, Runnable {
 		operation.setKey( Thread.ofVirtual().start(this.operation.getValue()) );
 		people.setKey( Thread.ofVirtual().start(this.people.getValue()) );
 		project.setKey( Thread.ofVirtual().start(this.project.getValue()) );
-		
+
 		plugin.setKey( new Thread(this.plugin.getValue()) );
 		tManager = new Thread(this);
-		
+
 		tManager.start();
 		plugin.getKey().start();
 

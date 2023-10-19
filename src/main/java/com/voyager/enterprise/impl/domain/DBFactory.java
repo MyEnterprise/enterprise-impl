@@ -3,7 +3,7 @@ package com.voyager.enterprise.impl.domain;
 import java.util.Properties;
 
 import com.voyager.enterprise.config.Config;
-import com.voyager.enterprise.impl.comercial.models.BuyerEntity;
+import com.voyager.enterprise.impl.comercial.entities.BuyerEntity;
 
 import io.ebean.Database;
 import io.ebean.DatabaseFactory;
