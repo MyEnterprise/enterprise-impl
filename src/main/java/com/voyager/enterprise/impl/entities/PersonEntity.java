@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 import com.voyager.enterprise.impl.entities.person.ContactEntity;
 import com.voyager.enterprise.impl.logistics.entities.distribution.AddressEntity;
@@ -16,7 +17,7 @@ import com.voyager.enterprise.util.Code;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-@Entity
+@MappedSuperclass
 public class PersonEntity {
 
 	@Id

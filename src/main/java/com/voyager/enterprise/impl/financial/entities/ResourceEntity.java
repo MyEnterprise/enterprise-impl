@@ -18,7 +18,6 @@ public class ResourceEntity {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-
 	@Column
     private Code<String> code;
 	@Column

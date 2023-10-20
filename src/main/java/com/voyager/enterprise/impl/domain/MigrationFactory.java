@@ -10,6 +10,8 @@ import io.ebeaninternal.dbmigration.migration.Migration;
 public class MigrationFactory {
     public static DbMigration build( Database db ){
         DbMigration dbMigration = DbMigration.create();
+// AQUI CONDIGURAR EXPORT REOSURCE FROM SYSTEM FILE		
+        dbMigration.setPathToResources(null);
 		
         dbMigration.setServer(db);
 		

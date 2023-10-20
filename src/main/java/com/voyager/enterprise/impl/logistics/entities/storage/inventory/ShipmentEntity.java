@@ -19,13 +19,10 @@ public class ShipmentEntity {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-
 	@Column
     private Code<String> code;
-
 	@Column
     private Map<String,String> attributes;
-
 	@Column
     private String desc;
 
