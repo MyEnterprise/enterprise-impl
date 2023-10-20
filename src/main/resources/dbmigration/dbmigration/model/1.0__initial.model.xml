@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <createTable name="address_entity" identityType="external" pkName="pk_address_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="main" type="boolean" defaultValue="false" notnull="true"/>
+            <column name="country" type="varchar"/>
+            <column name="state_or_province" type="varchar"/>
+            <column name="city" type="varchar"/>
+            <column name="district_or_burgh" type="varchar"/>
+            <column name="street" type="varchar"/>
+            <column name="number" type="varchar"/>
+        </createTable>
+        <createTable name="aquisition_entity" identityType="external" pkName="pk_aquisition_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+        </createTable>
+        <createTable name="buyer_entity" identityType="external" pkName="pk_buyer_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="name" type="varchar"/>
+            <column name="type" type="integer" checkConstraint="check ( type in (0,1))" checkConstraintName="ck_buyer_entity_type"/>
+        </createTable>
+        <createTable name="coin_entity" identityType="external" pkName="pk_coin_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="name" type="varchar"/>
+        </createTable>
+        <createTable name="contact_entity" identityType="external" pkName="pk_contact_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="fax" type="varchar"/>
+            <column name="fone" type="varchar"/>
+            <column name="mail" type="varchar"/>
+            <column name="main" type="boolean" defaultValue="false" notnull="true"/>
+            <column name="website" type="varchar"/>
+        </createTable>
+        <createTable name="cost_entity" identityType="external" pkName="pk_cost_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="amount" type="decimal"/>
+        </createTable>
+        <createTable name="division_entity" identityType="external" pkName="pk_division_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+        </createTable>
+        <createTable name="enterprise_entity" identityType="external" pkName="pk_enterprise_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="name" type="varchar"/>
+        </createTable>
+        <createTable name="expedition_entity" identityType="external" pkName="pk_expedition_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="type" type="integer" checkConstraint="check ( type in (0,1))" checkConstraintName="ck_expedition_entity_type"/>
+        </createTable>
+        <createTable name="expedition_status_entity" identityType="external" pkName="pk_expedition_status_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="status" type="integer" checkConstraint="check ( status in (0,1,2))" checkConstraintName="ck_expedition_status_entity_status"/>
+            <column name="dt" type="date"/>
+        </createTable>
+        <createTable name="fee_entity" identityType="external" pkName="pk_fee_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="amount" type="decimal"/>
+        </createTable>
+        <createTable name="fusion_entity" identityType="external" pkName="pk_fusion_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+        </createTable>
+        <createTable name="incorporation_entity" identityType="external" pkName="pk_incorporation_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+        </createTable>
+        <createTable name="lending_entity" identityType="external" pkName="pk_lending_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="status" type="integer" checkConstraint="check ( status in (0,1,2,3))" checkConstraintName="ck_lending_entity_status"/>
+            <column name="dt" type="date"/>
+        </createTable>
+        <createTable name="order_entity" identityType="external" pkName="pk_order_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="amount" type="decimal"/>
+        </createTable>
+        <createTable name="product_entity" identityType="external" pkName="pk_product_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="name" type="varchar"/>
+            <column name="weight" type="decimal"/>
+        </createTable>
+        <createTable name="resource_entity" identityType="external" pkName="pk_resource_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="price_enum" type="integer" checkConstraint="check ( price_enum in (0,1,2,3))" checkConstraintName="ck_resource_entity_price_enum"/>
+        </createTable>
+        <createTable name="seller_entity" identityType="external" pkName="pk_seller_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="name" type="varchar"/>
+            <column name="type" type="integer" checkConstraint="check ( type in (0,1))" checkConstraintName="ck_seller_entity_type"/>
+        </createTable>
+        <createTable name="service_entity" identityType="external" pkName="pk_service_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="name" type="varchar"/>
+        </createTable>
+        <createTable name="tax_identification_entity" identityType="external" pkName="pk_tax_identification_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="identification" type="varchar"/>
+        </createTable>
+        <createTable name="transaction_status_entity" identityType="external" pkName="pk_transaction_status_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="status" type="integer" checkConstraint="check ( status in (0,1,2,3))" checkConstraintName="ck_transaction_status_entity_status"/>
+            <column name="dt" type="date"/>
+        </createTable>
+        <createTable name="transference_entity" identityType="external" pkName="pk_transference_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="amount" type="decimal"/>
+            <column name="status" type="integer" checkConstraint="check ( status in (0,1,2,3,4,5,6))" checkConstraintName="ck_transference_entity_status"/>
+        </createTable>
+        <createTable name="transference_status_entity" identityType="external" pkName="pk_transference_status_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="status" type="integer" checkConstraint="check ( status in (0,1,2,3))" checkConstraintName="ck_transference_status_entity_status"/>
+            <column name="dt" type="date"/>
+        </createTable>
+        <createTable name="transport_entity" identityType="external" pkName="pk_transport_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="carrier" type="varchar"/>
+            <column name="type" type="integer" checkConstraint="check ( type in (0,1,2,3,4,5))" checkConstraintName="ck_transport_entity_type"/>
+        </createTable>
+        <createTable name="wallet_entity" identityType="external" pkName="pk_wallet_entity">
+            <column name="id" type="uuid" primaryKey="true" identity="true"/>
+            <column name="desc" type="varchar"/>
+            <column name="type" type="integer" checkConstraint="check ( type in (0,1,2))" checkConstraintName="ck_wallet_entity_type"/>
+            <column name="has_encrypted" type="boolean" defaultValue="false" notnull="true"/>
+            <column name="algorithm_encrypted" type="varchar"/>
+            <column name="region" type="varchar"/>
+            <column name="local" type="varchar"/>
+        </createTable>
+    </changeSet>
+</migration>

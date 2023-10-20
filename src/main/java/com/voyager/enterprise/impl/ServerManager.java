@@ -116,20 +116,20 @@ public class ServerManager implements Server, ManagerEnterprise, Runnable {
 	
 	private void initializeServers() {
 
-		commercial.setKey( Thread.ofVirtual().start(this.commercial.getValue()) );
-		economy.setKey( Thread.ofVirtual().start(this.economy.getValue()) );
-		financial.setKey( Thread.ofVirtual().start(this.financial.getValue()) );
-		logistics.setKey( Thread.ofVirtual().start(this.logistics.getValue()) );
-		operation.setKey( Thread.ofVirtual().start(this.operation.getValue()) );
-		people.setKey( Thread.ofVirtual().start(this.people.getValue()) );
-		project.setKey( Thread.ofVirtual().start(this.project.getValue()) );
+		/*commercial.setKey( new Thread(this.commercial.getValue()) );
+		economy.setKey( new Thread(this.economy.getValue()) );
+		financial.setKey( new Thread(this.financial.getValue()) );
+		logistics.setKey( new Thread(this.logistics.getValue()) );
+		operation.setKey( new Thread(this.operation.getValue()) );
+		people.setKey( new Thread(this.people.getValue()) );
+		project.setKey( new Thread(this.project.getValue()) );
 
 		plugin.setKey( new Thread(this.plugin.getValue()) );
 		tManager = new Thread(this);
 
 		tManager.start();
 		plugin.getKey().start();
-
+*/
 	}
 
 	@Override
