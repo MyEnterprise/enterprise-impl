@@ -23,13 +23,19 @@ public class AddressEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
     private boolean main;
+	@Column
     private String country;
+	@Column
     private String stateOrProvince;
+	@Column
     private String city;
+	@Column
     private String districtOrBurgh;
+	@Column
     private String street;
+	@Column
     private String number;
 
     public UUID getId() {

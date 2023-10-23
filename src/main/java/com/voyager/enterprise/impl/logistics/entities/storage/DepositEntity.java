@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.logistics.entity.storage.enums.DepositEnum;
 import com.voyager.enterprise.util.Code;
@@ -24,8 +26,9 @@ public class DepositEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
     private InventoryEntity inventory;
+	@OneToMany
     private List<DepositEnum> type;
 
     public UUID getId() {

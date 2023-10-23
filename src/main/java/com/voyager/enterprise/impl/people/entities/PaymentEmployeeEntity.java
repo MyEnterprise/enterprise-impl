@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.economy.entities.TransactionEntity;
 import com.voyager.enterprise.impl.plugin.payment.entities.PaymentIdentificationEntity;
@@ -25,7 +26,7 @@ public class PaymentEmployeeEntity extends TransactionEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
     private PaymentIdentificationEntity paymentIdentification;
 
     public UUID getId() {

@@ -23,11 +23,15 @@ public class WalletEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
 	private WalletEnum type;
+	@Column
     private boolean hasEncrypted;
+	@Column
     private String algorithmEncrypted;
+	@Column
     private String region;
+	@Column
     private String local;
 
     public UUID getId() {

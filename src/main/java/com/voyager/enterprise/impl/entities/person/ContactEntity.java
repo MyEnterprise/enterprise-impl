@@ -22,11 +22,15 @@ public class ContactEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
 	private String fax;
+	@Column
 	private String fone;
+	@Column
 	private String mail;
+	@Column
 	private boolean main;
+	@Column
 	private String website;
 
 	public UUID getId() {

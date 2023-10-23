@@ -23,10 +23,13 @@ public class VolumeEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-	
+	@Column
 	private BigDecimal width;
+	@Column
 	private BigDecimal height;
+	@Column
 	private BigDecimal depth;
+	@Column
 	private String unit;
 
 	public UUID getId() {

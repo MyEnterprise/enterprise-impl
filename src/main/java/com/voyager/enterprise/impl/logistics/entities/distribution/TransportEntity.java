@@ -6,13 +6,18 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.logistics.entities.distribution.transport.TransportStatusEntity;
 import com.voyager.enterprise.logistics.entity.distribution.transport.enums.TransportEnum;
 import com.voyager.enterprise.util.Code;
+
 
 @Entity
 public class TransportEntity {
@@ -26,11 +31,15 @@ public class TransportEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-    
+    @Column
     private String carrier;
+    @Enumerated(EnumType.STRING)
     private TransportEnum type;
+    @OneToMany
     private List<TransportStatusEntity> listStatus;
+    @OneToOne
     private AddressEntity originAdress;
+    @OneToOne
     private AddressEntity destinyAddress;
 
     public UUID getId() {

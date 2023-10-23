@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.economy.entities.merchandise.ProductEntity;
 import com.voyager.enterprise.util.Code;
@@ -25,9 +26,11 @@ public class ShipmentEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
     private ProductEntity merchandise;
+	@Column
     private LocalDate dtValid;
+	@Column
     private BigDecimal ammount;
 
     public UUID getId() {

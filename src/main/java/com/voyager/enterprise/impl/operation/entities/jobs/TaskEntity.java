@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.operation.entities.jobs.tasks.TaskStatusEntity;
 import com.voyager.enterprise.impl.people.entities.EmployeeEntity;
@@ -26,10 +28,13 @@ public class TaskEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
 	private EmployeeEntity responsible;
+	@OneToMany
 	private List<TaskStatusEntity> listStatus;
+	@Column
 	private LocalDate start;
+	@Column
 	private LocalDate end;
 
 	public UUID getId() {

@@ -9,9 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.logistics.entities.distribution.AddressEntity;
 import com.voyager.enterprise.util.Code;
+
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class WareHouseEntity {
@@ -25,8 +28,9 @@ public class WareHouseEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-    
+	@OneToOne
     private AddressEntity local;
+	@OneToMany
     private List<DepositEntity> listDeposit;
 
     public UUID getId() {

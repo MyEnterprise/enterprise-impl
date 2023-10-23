@@ -6,8 +6,11 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.entities.person.ContactEntity;
 import com.voyager.enterprise.impl.logistics.entities.distribution.AddressEntity;
@@ -16,6 +19,7 @@ import com.voyager.enterprise.util.Code;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToMany;
 
 @MappedSuperclass
 public class PersonEntity {
@@ -29,10 +33,13 @@ public class PersonEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
 	private String name;
+	@OneToOne
 	private TaxIdentificationEntity identification;
+	@OneToMany
 	private List<AddressEntity> listAddress;
+	@OneToMany
 	private List<ContactEntity> listContact;
 
 	public UUID getId() {

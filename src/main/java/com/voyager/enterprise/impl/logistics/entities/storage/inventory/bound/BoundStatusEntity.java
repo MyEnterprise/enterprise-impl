@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +27,9 @@ public class BoundStatusEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Enumerated(EnumType.STRING)
     private BoundStatusEnum status;
+	@Column
     private LocalDate dt;
 
     public UUID getId() {

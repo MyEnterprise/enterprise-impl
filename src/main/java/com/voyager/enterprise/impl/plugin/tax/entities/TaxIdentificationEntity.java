@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.util.Code;
 
@@ -24,8 +25,9 @@ public class TaxIdentificationEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
     private TaxEntity tax;
+	@Column
     private String identification;
 
 	public UUID getId() {

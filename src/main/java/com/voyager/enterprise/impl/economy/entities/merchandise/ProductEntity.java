@@ -9,11 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.economy.entity.Merchandise;
 import com.voyager.enterprise.impl.economy.entities.MerchandiseEntity;
 import com.voyager.enterprise.impl.logistics.entities.storage.inventory.VolumeEntity;
 import com.voyager.enterprise.util.Code;
+
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class ProductEntity extends MerchandiseEntity{
@@ -26,7 +29,9 @@ public class ProductEntity extends MerchandiseEntity{
     private Map<String,String> attributes;
 	@Column
     private String desc;
+	@OneToOne
 	private VolumeEntity volume;
+	@OneToOne
 	private BigDecimal weight;
 
 	public UUID getId() {

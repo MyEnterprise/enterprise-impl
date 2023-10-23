@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.voyager.enterprise.impl.comercial.entities.OrderEntity;
 import com.voyager.enterprise.impl.economy.entities.MerchandiseEntity;
@@ -28,11 +29,15 @@ public class JobEntity extends OrderEntity{
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToMany
 	private List<MerchandiseEntity> feedstocks;
+	@OneToMany
 	private List<TaskEntity> tasks;
+	@OneToMany
 	private List<JobStatusEntity> listStatus;
+	@Column
 	private LocalDate start;
+	@Column
 	private LocalDate end;
 
 	public UUID getId() {

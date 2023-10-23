@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.util.Code;
 
@@ -24,9 +26,11 @@ public class FusionEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-	
+	@OneToMany
 	private List<EnterpriseEntity> mergingEnterprise;
+	@OneToOne
 	private EnterpriseEntity resultingEnterprise;
+	@Column
 	private Map<EnterpriseEntity, Double> ownershipPercentages;
 
 	public UUID getId() {

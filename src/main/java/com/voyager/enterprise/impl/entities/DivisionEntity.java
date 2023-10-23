@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.economy.entities.TransactionEntity;
 import com.voyager.enterprise.util.Code;
@@ -24,9 +26,11 @@ public class DivisionEntity{
     private Map<String,String> attributes;
 	@Column
     private String desc;
-	
+	@OneToOne
 	private EnterpriseEntity originalEnterprise;
+	@OneToMany
 	private List<EnterpriseEntity> resultingEnterprise;
+	@Column
 	private Map<EnterpriseEntity, TransactionEntity> transferredAssetsEnterprise;
 
 	public UUID getId() {

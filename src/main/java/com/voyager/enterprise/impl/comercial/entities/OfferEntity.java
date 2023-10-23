@@ -3,6 +3,8 @@ package com.voyager.enterprise.impl.comercial.entities;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.persistence.OneToOne;
+
 import com.voyager.enterprise.impl.economy.entities.MerchandiseEntity;
 import com.voyager.enterprise.util.Code;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class OfferEntity {
@@ -24,8 +27,9 @@ public class OfferEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
     private String name;
+    @OneToOne
 	private MerchandiseEntity merchandise;
 
     public UUID getId() {

@@ -10,9 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.economy.entities.merchandise.CoinEntity;
 import com.voyager.enterprise.util.Code;
+
+import jakarta.persistence.OneToMany;
 
 @MappedSuperclass
 public class InterestEntity {
@@ -26,8 +29,9 @@ public class InterestEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
     private CoinEntity coin;
+	@OneToOne
     private BigDecimal amount;
 
 	public UUID getId() {

@@ -7,6 +7,8 @@ import java.util.UUID;
 import javax.annotation.processing.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 import com.voyager.enterprise.commercial.entity.Purchase;
@@ -34,8 +36,9 @@ public class BuyerEntity extends PersonEntity{
 	@Column
     private String desc;
 
+	@Enumerated(EnumType.STRING)
 	private BuyerEnum type;
-	
+
 	@OneToMany
 	private List<PurchaseEntity> listPurchase;
 

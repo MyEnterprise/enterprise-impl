@@ -6,13 +6,13 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.voyager.enterprise.util.Code;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
 @Entity
 public class EnterpriseEntity extends PersonEntity{
@@ -20,15 +20,15 @@ public class EnterpriseEntity extends PersonEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-
 	@Column
     private Code<String> code;
 	@Column
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
 	private String name;
+	@OneToMany
 	private List<String> listSegment;
 
 	public UUID getId() {

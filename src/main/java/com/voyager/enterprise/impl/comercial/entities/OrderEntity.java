@@ -9,12 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.economy.entities.TransactionEntity;
 import com.voyager.enterprise.impl.logistics.entities.storage.WareHouseEntity;
 import com.voyager.enterprise.util.Code;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class OrderEntity {
@@ -28,10 +30,13 @@ public class OrderEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
 	private OfferEntity offer;
+	@Column
     private BigDecimal amount;
+    @OneToOne
     private WareHouseEntity deposit;
+    @OneToMany
     private List<TransactionEntity> transaction;
 
     public UUID getId() {

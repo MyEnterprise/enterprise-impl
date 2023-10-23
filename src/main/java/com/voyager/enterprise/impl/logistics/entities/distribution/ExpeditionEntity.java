@@ -6,9 +6,13 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.logistics.entities.distribution.expedition.ExpeditionStatusEntity;
 import com.voyager.enterprise.impl.logistics.entities.storage.inventory.ShipmentEntity;
@@ -27,11 +31,15 @@ public class ExpeditionEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
     private Code<String> locationInvetory;
+	@OneToOne
     private ShipmentEntity shipment;
+	@OneToMany
     private List<TransportEntity> transport;
+	@Enumerated(EnumType.STRING)
     private ExpeditionEnum type;
+	@OneToMany
     private List<ExpeditionStatusEntity> listStatus;
 
     public UUID getId() {

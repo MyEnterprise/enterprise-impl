@@ -10,6 +10,7 @@
 
 	<properties>
 		<!-- Compile Env -->
+		<java.version>11</java.version>
     	<maven.compiler.source>11</maven.compiler.source>
      	<maven.compiler.target>11</maven.compiler.target>
      	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -197,6 +198,8 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
+					<source>${maven.compiler.source}</source>
+                	<target>${maven.compiler.target}</target>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>

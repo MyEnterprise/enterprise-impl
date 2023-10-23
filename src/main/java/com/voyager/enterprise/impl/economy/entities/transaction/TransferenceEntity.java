@@ -7,15 +7,20 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.economy.entity.transaction.transference.enums.TransferenceStatusEnum;
 import com.voyager.enterprise.impl.economy.entities.MerchandiseEntity;
 import com.voyager.enterprise.impl.economy.entities.transaction.transference.TransferenceStatusEntity;
 import com.voyager.enterprise.impl.entities.PersonEntity;
 import com.voyager.enterprise.util.Code;
+
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class TransferenceEntity {
@@ -28,12 +33,17 @@ public class TransferenceEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-	
+	@OneToOne
 	private MerchandiseEntity merchandise;
+	@Column
 	private BigDecimal amount;
+	@Enumerated(EnumType.STRING)
 	private TransferenceStatusEnum status;
+	@OneToMany
     private List<TransferenceStatusEntity> listStatus;
+	@OneToOne
     private PersonEntity sender;
+	@OneToOne
     private PersonEntity receiver;
 
 	public UUID getId() {

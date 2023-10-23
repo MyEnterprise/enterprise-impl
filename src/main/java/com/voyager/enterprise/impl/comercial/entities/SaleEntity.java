@@ -22,7 +22,7 @@ public class SaleEntity extends OrderEntity{
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@Column
 	private BigDecimal minPrice;
 
 	public UUID getId() {

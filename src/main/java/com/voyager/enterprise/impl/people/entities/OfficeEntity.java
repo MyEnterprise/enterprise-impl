@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.financial.entities.ResourceEntity;
 import com.voyager.enterprise.util.Code;
@@ -27,14 +29,19 @@ public class OfficeEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
     private ResourceEntity resource;
+	@Column
     private String role;
+	@Column
     private BigDecimal salary;
+	@OneToOne
     private DepartmentEntity department;
-    private Properties properties;
+	@Column
     private String dtStart;
+	@Column
     private String dtEnd;
+	@OneToMany
     private List<PaymentEmployeeEntity> listPayment;
 
     public UUID getId() {
@@ -84,12 +91,6 @@ public class OfficeEntity {
     }
     public void setDepartment(DepartmentEntity department) {
         this.department = department;
-    }
-    public Properties getProperties() {
-        return properties;
-    }
-    public void setProperties(Properties properties) {
-        this.properties = properties;
     }
     public String getDtStart() {
         return dtStart;

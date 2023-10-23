@@ -23,7 +23,7 @@ public class DepartmentEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-    
+    @Column
     private String name;
 
     public UUID getId() {

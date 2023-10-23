@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.voyager.enterprise.impl.economy.entities.TransactionEntity;
 import com.voyager.enterprise.util.Code;
@@ -24,9 +25,11 @@ public class AquisitionEntity {
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToOne
 	private EnterpriseEntity acquiring;
+	@OneToOne
 	private EnterpriseEntity acquired;
+	@OneToOne
 	private TransactionEntity cost;
 
 	public UUID getId() {

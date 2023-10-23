@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.voyager.enterprise.impl.entities.PersonEntity;
 import com.voyager.enterprise.util.Code;
@@ -26,10 +27,13 @@ public class EmployeeEntity extends PersonEntity{
     private Map<String,String> attributes;
 	@Column
     private String desc;
-
+	@OneToMany
 	private List<OfficeEntity> office;
+	@Column
     private String race;
+	@Column
     private String sex;
+	@Column
     private LocalDate dtBirth;
 
     public UUID getId() {

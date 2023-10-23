@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.voyager.enterprise.impl.logistics.entities.storage.inventory.InBoundEntity;
 import com.voyager.enterprise.impl.logistics.entities.storage.inventory.OutBoundEntity;
@@ -31,8 +32,9 @@ public class InventoryEntity {
     // Aberto
     // Prateleiras
     // Pilhas
-
+	@OneToMany
     private List<InBoundEntity> listInBound;
+	@OneToMany
     private List<OutBoundEntity> listOutBound;
 
     public UUID getId() {
