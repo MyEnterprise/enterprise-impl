@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import com.voyager.enterprise.economy.entity.Merchandise;
 import com.voyager.enterprise.economy.usercase.CaseMerchandise;
-import com.voyager.enterprise.impl.comercial.ServerCommercial;
 import com.voyager.enterprise.impl.economy.ServerEconomy;
 
 public class MerchandiseCase implements CaseMerchandise{

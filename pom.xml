@@ -56,72 +56,26 @@
 		  <scope>compile</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.ebean/ebean -->
-		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>ebean</artifactId>
-		    <version>${ioEbeanVersion}</version>
-		    <scope>compile</scope>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-datasource -->
+		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
 		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>ebean-datasource</artifactId>
-		    <version>8.7</version>
-		    <scope>compile</scope>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-migration -->
-		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>ebean-migration</artifactId>
-		    <version>13.9.0</version>
-		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.ebean/jakarta-persistence-api -->
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
 		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>jakarta-persistence-api</artifactId>
-		    <version>3.0</version>
-		    <scope>compile</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-platform-all -->
-		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>ebean-platform-all</artifactId>
-		    <version>${ioEbeanVersion}</version>
-		    <scope>compile</scope>
-		</dependency>
-
-		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>ebean-platform-postgres</artifactId>
-		    <version>${ioEbeanVersion}</version>
-		    <scope>compile</scope>
-		</dependency>
-
-		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>ebean-postgres</artifactId>
-		    <version>${ioEbeanVersion}</version>
-		    <scope>compile</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.ebean/ebean-ddl-generator -->		
-		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>ebean-ddl-generator</artifactId>
-		    <version>${ioEbeanVersion}-jakarta</version>
-		    <scope>compile</scope>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>9.22.3</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
@@ -139,10 +93,19 @@
 		    <scope>compile</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
-		    <groupId>io.ebean</groupId>
-		    <artifactId>persistence-api</artifactId>
-		    <version>3.0</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.3.1.Final</version>
+			<type>pom</type>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
@@ -169,37 +132,8 @@
         </testResources>
 	    <plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>${mainClass}</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-	            <groupId>io.ebean</groupId>
-	            <artifactId>ebean-maven-plugin</artifactId>
-	            <version>13.22.0</version> <!-- Use a versão mais recente disponível -->
-	            <executions>
-	                <execution>
-	                    <id>main</id>
-	                    <phase>process-classes</phase>
-	                    <goals>
-	                        <goal>enhance</goal>
-	                    </goals>
-	                </execution>
-	            </executions>
-	        </plugin>
-			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<source>${maven.compiler.source}</source>
-                	<target>${maven.compiler.target}</target>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
@@ -211,14 +145,14 @@
 					</descriptorRefs>
 				</configuration>
 				<executions>
-	                <execution>
-	                    <id>main</id>
-	                    <phase>process-classes</phase>
-	                    <goals>
-	                        <goal>assembly</goal>
-	                    </goals>
-	                </execution>
-	            </executions>
+					<execution>
+						<id>main</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 	    </plugins>
 	</build>

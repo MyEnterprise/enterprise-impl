@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
 
@@ -33,11 +34,11 @@ public class Config {
 
     	Object value = getEnvProperty(key);
         if (value != null) {
-            return value.toString();
+            return resolveVariable(value.toString());
         } 
         value = getYamlProperty(key);
         if (value != null) {
-            return value.toString();
+            return resolveVariable(value.toString());
         }
         return "";
     }
@@ -58,5 +59,27 @@ public class Config {
         if( envConfig == null ) return null;
         return envConfig.getProperty(key); 
     }
+
+    public static String resolveVariable(String input) {
+        if (input != null && input.startsWith("${") && input.endsWith("}")) {
+            var sanitized = input.substring(2, input.length() - 1);
+            String[] parts = sanitized.split(":");
+
+            String varName = parts[0];
+
+            String defaultValue = (parts.length == 2) ? parts[1] : ((parts.length > 2) ? sanitized.substring(varName.length()+1, sanitized.length()) : "");
+
+            String systemPropertyValue = System.getProperty(varName);
+
+            if (systemPropertyValue != null) {
+                return systemPropertyValue;
+            }
+
+            return defaultValue;
+        }
+
+        return input;
+    }
+
 
 }

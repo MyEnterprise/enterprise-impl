@@ -7,8 +7,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.voyager.enterprise.impl.ServerManager;
 import com.voyager.enterprise.impl.action.ActionQueue;
-import com.voyager.enterprise.impl.comercial.ServerCommercial;
-import com.voyager.enterprise.manager.comercial.ManagerCommercial;
 import com.voyager.enterprise.manager.economy.ManagerEconomy;
 import com.voyager.util.Reflections;
 

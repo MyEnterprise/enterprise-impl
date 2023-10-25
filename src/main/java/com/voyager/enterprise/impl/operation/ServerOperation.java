@@ -4,14 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import com.voyager.enterprise.impl.ServerManager;
 import com.voyager.enterprise.impl.action.ActionQueue;
-import com.voyager.enterprise.impl.comercial.ServerCommercial;
-import com.voyager.enterprise.impl.logistics.ServerLogistics;
-import com.voyager.enterprise.manager.comercial.ManagerCommercial;
 import com.voyager.enterprise.manager.operation.ManagerOperation;
 import com.voyager.util.Reflections;
 

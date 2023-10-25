@@ -1,29 +1,39 @@
 package com.voyager.enterprise.impl.domain;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.voyager.enterprise.config.Config;
-import com.voyager.enterprise.impl.comercial.entities.BuyerEntity;
-import com.voyager.enterprise.impl.economy.entities.MerchandiseEntity;
-import com.voyager.enterprise.impl.entities.EnterpriseEntity;
-import com.voyager.enterprise.impl.financial.entities.BookEntity;
-import com.voyager.enterprise.impl.logistics.entities.distribution.AddressEntity;
-import com.voyager.enterprise.impl.plugin.tax.entities.TaxIdentificationEntity;
-import com.voyager.enterprise.operation.entity.Job;
-import com.voyager.enterprise.people.entity.Department;
-import com.voyager.enterprise.plugin.payment.entity.Payment;
+import com.voyager.enterprise.impl.domain.entities.BuyerEntity;
+import com.voyager.enterprise.impl.domain.entities.MerchandiseEntity;
+import com.voyager.enterprise.impl.domain.entities.TransactionEntity;
+import com.voyager.enterprise.impl.domain.entities.lending.FeeEntity;
+import com.voyager.enterprise.impl.domain.entities.merchandise.CoinEntity;
+import com.voyager.enterprise.impl.domain.entities.transaction.TransferenceEntity;
+import com.voyager.enterprise.impl.domain.entities.EnterpriseEntity;
+import com.voyager.enterprise.impl.domain.entities.BookEntity;
+import com.voyager.enterprise.impl.domain.entities.distribution.AddressEntity;
+import com.voyager.enterprise.impl.domain.entities.storage.DepositEntity;
+import com.voyager.enterprise.impl.domain.entities.storage.WareHouseEntity;
+import com.voyager.enterprise.impl.domain.entities.storage.inventory.InBoundEntity;
+import com.voyager.enterprise.impl.domain.entities.storage.inventory.bound.BoundStatusEntity;
+import com.voyager.enterprise.impl.domain.entities.JobEntity;
+import com.voyager.enterprise.impl.domain.entities.DepartmentEntity;
+import com.voyager.enterprise.impl.domain.entities.PaymentEntity;
+import com.voyager.enterprise.impl.domain.entities.TaxIdentificationEntity;
 import com.voyager.util.Reflections;
 
-import io.ebean.Database;
-import io.ebean.DatabaseFactory;
-import io.ebean.config.DatabaseConfig;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class DBFactory {
 	
-	private static Database db;
+	private static Object db;
 
-	public static Database build(){
-
+	public static Object build(){
+/*
 		if(DBFactory.db != null)return DBFactory.db;
 
 		Properties properties = new Properties();
@@ -36,55 +46,26 @@ public class DBFactory {
 
 		DatabaseConfig cfg = new DatabaseConfig();
 		cfg.loadFromProperties(properties);
-        
+
 		DBFactory.db = DatabaseFactory.create(cfg);
 
-		return DBFactory.db;
+		return DBFactory.db;*/
+		return null;
 	}
 
-    public static Database build(Config conf){
+    public static Object build(Config config){
 
-        Database db;
+		Map<String, String> properties = new HashMap<>();
+		properties.put("javax.persistence.jdbc.url", config.getProperty("datasource.db.databaseUrl"));
+		properties.put("javax.persistence.jdbc.user", config.getProperty("datasource.db.username"));
+		properties.put("javax.persistence.jdbc.password", config.getProperty("datasource.db.password"));
+		properties.put("javax.persistence.jdbc.driver", config.getProperty("datasource.db.databaseDriver"));
 
-		DatabaseConfig cfg = new DatabaseConfig();
+		// Cria a fábrica de gerenciamento de entidades
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("my-pu", properties);
 
-		Properties properties = new Properties();
-		properties.put("ebean.db.ddl.generate", conf.getProperty("ebean.db.ddl.generate"));
-		properties.put("ebean.db.ddl.run", conf.getProperty("ebean.db.ddl.run"));
-		properties.put("datasource.db.username", conf.getProperty("datasource.db.username"));
-		properties.put("datasource.db.password", conf.getProperty("datasource.db.password"));
-		properties.put("datasource.db.databaseUrl",conf.getProperty("datasource.db.databaseUrl"));
-		properties.put("datasource.db.databaseDriver", conf.getProperty("datasource.db.databaseDriver"));
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		cfg.loadFromProperties(properties);
-
-		cfg.setDdlGenerate(true);
-		cfg.setDdlRun(true);
-		cfg.setDefaultServer(true);
-		cfg.setRegister(true);
-
-		//cfg.addClass(BuyerEntity.class);
-		// Enterprise
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( EnterpriseEntity.class.getPackage().getName() )  );
-		// Economy
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( MerchandiseEntity.class.getPackage().getName() ) );
-		// Commercial
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( BuyerEntity.class.getPackage().getName() ) );
-		// Financial
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( BookEntity.class.getPackage().getName() ) );
-		// Logistics
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( AddressEntity.class.getPackage().getName() ) );
-		// Operation
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( Job.class.getPackage().getName() ));
-		// People
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( Department.class.getPackage().getName() ) );
-		// Plugin Payment
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( Payment.class.getPackage().getName() ) );
-		// Plugin Tax
-		cfg.addAll( Reflections.getClassesInPackageAndSubpackages( TaxIdentificationEntity.class.getPackage().getName() ) );
-
-		db = DatabaseFactory.create(cfg);
-
-        return db;
+		return entityManager;
     }
 }

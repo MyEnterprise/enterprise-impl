@@ -1,36 +1,9 @@
 package com.voyager;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Properties;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-
-import com.voyager.enterprise.commercial.usercase.CaseSale;
 import com.voyager.enterprise.config.Config;
 import com.voyager.enterprise.impl.ServerManager;
-import com.voyager.enterprise.impl.action.ActionQueue;
-import com.voyager.enterprise.impl.comercial.entities.BuyerEntity;
-import com.voyager.enterprise.impl.domain.DBFactory;
-import com.voyager.enterprise.impl.operation.ServerOperation;
-import com.voyager.enterprise.plugin.entity.Plugin;
-
-import com.voyager.pluginTest.MyPluginInClass;
-
-import io.ebean.dbmigration.DbMigration;
-import io.ebean.migration.MigrationConfig;
-import io.ebean.Database;
-import io.ebean.DatabaseFactory;
-import io.ebean.annotation.Platform;
-import io.ebean.config.DatabaseConfig;
 
 public class Main{
-
 	public static void main(String[] args) throws Throwable{
 
 		// Load Plugin from Jar File
@@ -48,16 +21,16 @@ public class Main{
 		
 		server.initialize();
 
-		CaseSale sale = server.getCommercial().useCase(CaseSale.class);
-		System.out.println(sale);
-		sale.create(null);
-		/* Queue:
-		 * server.queue.add(new ActionQueue<>(ServerManager::getLogistics)
-				.data(null)
-				.call(arg0 -> {
-			
-				}));
-		*/
+		//CaseSale sale = server.getCommercial().useCase(CaseSale.class);
+		//System.out.println(sale);
+		//sale.create(null);
+		// Queue:
+		// server.queue.add(new ActionQueue<>(ServerManager::getLogistics)
+		//		.data(null)
+		//		.call(arg0 -> {
+		//
+		//		}));
+
 		
 	    //MigrationConfig config = new MigrationConfig();
 	    //config.setDbUsername("sa");

@@ -3,12 +3,10 @@ package com.voyager.enterprise.impl.domain;
 import java.io.File;
 import java.io.IOException;
 
+import com.voyager.enterprise.config.Config;
 import org.apache.commons.io.FileUtils;
-
-import io.ebean.Database;
-import io.ebean.annotation.Platform;
-import io.ebean.dbmigration.DbMigration;
-import io.ebeaninternal.dbmigration.migration.Migration;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.output.MigrateResult;
 
 public class MigrationFactory {
 
@@ -33,21 +31,17 @@ public class MigrationFactory {
     	return fileMigration;
 	}
 	
-    public static DbMigration build( Database db ){
-        DbMigration dbMigration = DbMigration.create();
-// AQUI CONDIGURAR EXPORT REOSURCE FROM SYSTEM FILE	
-        
-        dbMigration.setPathToResources(genDir().getAbsolutePath());
-		
-        dbMigration.setServer(db);
-		
-        try {
-            dbMigration.generateMigration();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public static MigrateResult build(Config config ){
+		// Create the Flyway instance and point it to the database
+		Flyway flyway = Flyway.configure()
+								.dataSource(	config.getProperty("datasource.db.databaseUrl"),
+										  		config.getProperty("datasource.db.username"),
+										  		config.getProperty("datasource.db.password")
+							  	)
+								.locations(genDir().getAbsolutePath())
+								.load();
 
-        return dbMigration;
+		// Start the migration
+		return flyway.migrate();
     }
 }

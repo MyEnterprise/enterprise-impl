@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executors;
 
 import com.voyager.enterprise.config.Config;
 import com.voyager.enterprise.impl.action.ActionQueue;
-import com.voyager.enterprise.impl.comercial.ServerCommercial;
-import com.voyager.enterprise.impl.comercial.entities.BuyerEntity;
+import com.voyager.enterprise.impl.commercial.ServerCommercial;
 import com.voyager.enterprise.impl.domain.DBFactory;
 import com.voyager.enterprise.impl.domain.MigrationFactory;
+import com.voyager.enterprise.impl.domain.entities.BuyerEntity;
 import com.voyager.enterprise.impl.economy.ServerEconomy;
 import com.voyager.enterprise.impl.financial.ServerFinancial;
 import com.voyager.enterprise.impl.logistics.ServerLogistics;
@@ -33,16 +32,12 @@ import com.voyager.enterprise.server.Server;
 import com.voyager.util.MyPair;
 import com.voyager.util.Reflections;
 
-import io.ebean.Database;
-
-import io.ebean.dbmigration.DbMigration;
-
 public class ServerManager implements Server, ManagerEnterprise, Runnable {
 
 	public static final ConcurrentLinkedQueue<ActionQueue> queue = new ConcurrentLinkedQueue<>();
 
-	private Database db;
-	private DbMigration migration;
+	private Object db;
+	private Object migration;
 	private Config config;
 
 	private Thread tManager;
@@ -101,17 +96,20 @@ public class ServerManager implements Server, ManagerEnterprise, Runnable {
 			sleepLoop(25);
 		}while( true );
 	}
-	
+
 	private void initializeDB() throws IOException {
 
 		this.db = DBFactory.build(this.config);
 
-		this.migration = MigrationFactory.build(db);
-		
-		/*BuyerEntity buyer = new BuyerEntity();
-		buyer.setName("Gil");
-		db.insert(buyer);*/
+		this.migration = MigrationFactory.build(this.config);
 
+		//
+
+		/*
+		BuyerEntity buyer = new BuyerEntity();
+		buyer.setName("Gil");
+		db.insert(buyer);
+		*/
 	}
 	
 	private void initializeServers() {
