@@ -23,10 +23,12 @@ import com.voyager.enterprise.impl.domain.entities.DepartmentEntity;
 import com.voyager.enterprise.impl.domain.entities.PaymentEntity;
 import com.voyager.enterprise.impl.domain.entities.TaxIdentificationEntity;
 import com.voyager.util.Reflections;
+import jakarta.persistence.EntityManager;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.hibernate.service.ServiceRegistry;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class DBFactory {
 	
@@ -53,18 +55,39 @@ public class DBFactory {
 		return null;
 	}
 
-    public static Object build(Config config){
+    public static EntityManager build(Config config){
 
 		Map<String, String> properties = new HashMap<>();
 		properties.put("javax.persistence.jdbc.url", config.getProperty("datasource.db.databaseUrl"));
 		properties.put("javax.persistence.jdbc.user", config.getProperty("datasource.db.username"));
 		properties.put("javax.persistence.jdbc.password", config.getProperty("datasource.db.password"));
 		properties.put("javax.persistence.jdbc.driver", config.getProperty("datasource.db.databaseDriver"));
+		properties.put("hibernate.show_sql", "true");
+		properties.put("javax.persistence.schema-generation.create-database-schemas", "true");
+		properties.put("hibernate.hbm2ddl.auto", "update");
+		HibernatePersistenceProvider persistenceProvider = new HibernatePersistenceProvider();
+
+		var prop = new Properties();
+
+		for(Map.Entry<String,String> entry : properties.entrySet()){
+			prop.setProperty(entry.getKey(), entry.getValue());
+		}
+
+		Configuration hibernateConfig = new Configuration();
+		hibernateConfig.addPackage("com.voyager.enterprise.impl.domain.entities");
+		hibernateConfig.addProperties(prop);
+		ServiceRegistry sessionFactory = new StandardServiceRegistryBuilder()
+				.applySettings(hibernateConfig.getProperties())
+				.build();
 
 		// Cria a fábrica de gerenciamento de entidades
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("my-pu", properties);
+		var emf = persistenceProvider.createEntityManagerFactory("my-pdu", properties);
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = emf.createEntityManager();
+
+
+		emf.close();
+		sessionFactory.close();
 
 		return entityManager;
     }

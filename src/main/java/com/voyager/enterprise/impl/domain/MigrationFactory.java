@@ -34,11 +34,14 @@ public class MigrationFactory {
     public static MigrateResult build(Config config ){
 		// Create the Flyway instance and point it to the database
 		Flyway flyway = Flyway.configure()
-								.dataSource(	config.getProperty("datasource.db.databaseUrl"),
-										  		config.getProperty("datasource.db.username"),
-										  		config.getProperty("datasource.db.password")
+								.dataSource(
+										config.getProperty("datasource.db.databaseUrl"),
+										config.getProperty("datasource.db.username"),
+										config.getProperty("datasource.db.password")
 							  	)
-								.locations(genDir().getAbsolutePath())
+								.baselineOnMigrate(true)
+								.createSchemas(true)
+								.locations("filesystem:"+genDir().getAbsolutePath())
 								.load();
 
 		// Start the migration

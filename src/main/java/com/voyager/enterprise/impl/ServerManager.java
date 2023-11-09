@@ -104,7 +104,7 @@ public class ServerManager implements Server, ManagerEnterprise, Runnable {
 		this.migration = MigrationFactory.build(this.config);
 
 		//
-
+		System.out.print(2);
 		/*
 		BuyerEntity buyer = new BuyerEntity();
 		buyer.setName("Gil");

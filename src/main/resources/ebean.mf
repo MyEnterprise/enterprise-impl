@@ -1,3 +1,0 @@
-entity-packages: com.voyager.enterprise.impl.domain.entities
-entity-field-access: true
-synthetic: false
