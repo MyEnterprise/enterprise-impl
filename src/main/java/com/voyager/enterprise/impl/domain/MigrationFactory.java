@@ -12,23 +12,23 @@ public class MigrationFactory {
 
 	private static final String pathResourceMigration = "dbmigration";
 
-	private static File genDir() {
+	private static String genDir() {
 		ClassLoader loader = MigrationFactory.class.getClassLoader();
 		File fileMigration = new File("./src/main/resources/"+pathResourceMigration);
     	// Error is not implemented in function 'ReadDarknetFromWeightsStream':  https://github.com/opencv/opencv/issues/19218
     	try {
     		
     		if( !fileMigration.exists() ) {
-    			return new File("./");
-    		//	File srcDir = new File( loader.getResource(pathResourceMigration).getFile() );
-    		//	FileUtils.copyDirectory( srcDir, fileMigration);
+    			return "filesystem:"+new File("./").getAbsolutePath();
+    			//File srcDir = new File( loader.getResource(pathResourceMigration).getFile() );
+    			//FileUtils.copyDirectory( srcDir, fileMigration );
     		}
 
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 
-    	return fileMigration;
+    	return "filesystem:"+fileMigration.getAbsolutePath();
 	}
 	
     public static MigrateResult build(Config config ){
@@ -41,7 +41,7 @@ public class MigrationFactory {
 							  	)
 								.baselineOnMigrate(true)
 								.createSchemas(true)
-								.locations("filesystem:"+genDir().getAbsolutePath())
+								.locations(genDir())
 								.load();
 
 		// Start the migration
