@@ -25,7 +25,7 @@ public class InterestEntity {
     private String desc;
 	@OneToOne
     private CoinEntity coin;
-	@OneToOne
+	@Column
     private BigDecimal amount;
 
 	public UUID getId() {

@@ -24,6 +24,8 @@ import com.voyager.enterprise.impl.domain.entities.PaymentEntity;
 import com.voyager.enterprise.impl.domain.entities.TaxIdentificationEntity;
 import com.voyager.util.Reflections;
 import jakarta.persistence.EntityManager;
+
+import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.jpa.HibernatePersistenceProvider;
@@ -79,6 +81,24 @@ public class DBFactory {
 		ServiceRegistry sessionFactory = new StandardServiceRegistryBuilder()
 				.applySettings(hibernateConfig.getProperties())
 				.build();
+//		https://www.baeldung.com/hibernate-5-bootstrapping-api		
+//		https://www.baeldung.com/spring-data-jpa-generate-db-schema
+	    MetadataSources metadataSources = new MetadataSources(sessionFactory);
+	    metadataSources.addAnnotatedClass(Account.class);
+	    metadataSources.addAnnotatedClass(AccountSettings.class);
+	    Metadata metadata = metadataSources.buildMetadata();
+
+	    SchemaExport schemaExport = new SchemaExport();
+	    schemaExport.setFormat(true);
+	    schemaExport.setOutputFile("create.sql");
+	    schemaExport.createOnly(EnumSet.of(TargetType.SCRIPT), metadata);
+	    
+	    SchemaExport export = new SchemaExport(metadata);
+	    
+		SchemaExport schemaExport = new SchemaExport();
+		schemaExport.setFormat(true);
+		schemaExport.setOutputFile("create.sql");
+		schemaExport.createOnly(EnumSet.of(TargetType.SCRIPT), metadata);
 
 		// Cria a fábrica de gerenciamento de entidades
 		var emf = persistenceProvider.createEntityManagerFactory("my-pdu", properties);
